@@ -48,7 +48,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0.2rem 0.2rem 0.5rem rgb(194, 186, 186);
+  box-shadow: 0.2rem 0.2rem 0.5rem rgb(190, 186, 194);
+}
+.headername{
+  color: rgb(128, 85, 207);
 }
 .header_left{
   font-size: 2rem;
@@ -65,7 +68,7 @@ export default {
   width: 16.25rem;
   color: white;
   background-color: rgb(29, 30, 36);
-  box-shadow: 2px 2px rgb(170, 170, 179);
+  box-shadow: 2px 2px rgb(143, 127, 143);
 }
 .tophead{
   display: flex;

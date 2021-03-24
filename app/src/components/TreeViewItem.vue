@@ -77,6 +77,7 @@ a{
 }
 .icon{
   background-image: url('../../static/ai/ai-arrow-down.png');
+  transform: rotate(90deg);
   width: 20px;
   height: 20px;
   background-size: cover;
