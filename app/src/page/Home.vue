@@ -18,6 +18,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -69,6 +70,11 @@ export default {
   color: white;
   background-color: rgb(29, 30, 36);
   box-shadow: 2px 2px rgb(143, 127, 143);
+  overflow-y:auto;
+  overflow-x:hidden;
+  }
+.side::-webkit-scrollbar{
+  display: none;
 }
 .tophead{
   display: flex;
