@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="contentMiddle">
-      <li class="manyBox" v-for="(item,index) in InfoLists" :key="item.id">
+      <li class="manyBox" v-for="item in InfoLists" :key="item.id">
         <div class="boxMiddle">
           <div class="box_left">
             <span class="InfoCata">{{item.Ltitle}}:</span><span class="InfoValue">{{item.Lvalue}}</span>
@@ -30,25 +30,19 @@ export default {
   data () {
     return {
       InfoLists: [
-        {id: 1, Ltitle:'名称', Lvalue:'',Rtitle:'编号', Rvalue: ''},
-        {id: 2, Ltitle: '类型', Lvalue:'',Rtitle:'成立时间', Rvalue: ''},
-        {id:3, Ltitle: '官网', Lvalue: '',Rtitle: '地址', Rvalue: ''},
-        {id:4, Ltitle:'电话', Lvalue: '',Rtitle:'邮箱', Rvalue: ''},
-        {id:5, Ltitle: '负责人账号', Lvalue: '',Rtitle:'负责人联系方式', Rvalue: ''}
-        ],
-      message:"这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介" +
-        "这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介" +
-        "这里是公司简介这里是公司简介这里是公司简介这里是公司简介",
+        {id: 1, Ltitle: '名称', Lvalue: '', Rtitle: '编号', Rvalue: ''},
+        {id: 2, Ltitle: '类型', Lvalue: '', Rtitle: '成立时间', Rvalue: ''},
+        {id: 3, Ltitle: '官网', Lvalue: '', Rtitle: '地址', Rvalue: ''},
+        {id: 4, Ltitle: '电话', Lvalue: '', Rtitle: '邮箱', Rvalue: ''},
+        {id: 5, Ltitle: '负责人账号', Lvalue: '', Rtitle: '负责人联系方式', Rvalue: ''}],
+      message: '这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介' +
+        '这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介' +
+        '这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介'
     }
   },
-  computed: {
-    calLines(){
-      // return this.InfoLists.id.filter(this.InfoLists.id / 2);
-    }
-  },
-  methods:{
+  methods: {
     changeInfo () {
-      console.log('111');
+      console.log('111')
     }
   }
 }
