@@ -3,24 +3,38 @@
     <div class="contentTop">
       <div class="topBox">
         <h1 id="topName">阿里巴巴集团</h1>
-        <button class="changeBtn" @click="changeInfo">修改信息</button>
+        <button class="changeBtn" @click="changeInfo" v-if="!IfChange">修改信息</button>
+        <button class="changeBtn" @click="successChange" v-if="IfChange">保存修改</button>
       </div>
     </div>
     <div class="contentMiddle">
-      <li class="manyBox" v-for="item in InfoLists" :key="item.id">
+      <li class="manyBox" v-for="(item,index) in InfoLists" :key="index">
         <div class="boxMiddle">
           <div class="box_left">
-            <span class="InfoCata">{{item.Ltitle}}:</span><span class="InfoValue">{{item.Lvalue}}</span>
+            <span class="InfoCata">{{item.Ltitle}}:</span><span class="InfoValue" v-if="!IfChange">{{item.Lvalue}}</span>
+            <el-input v-model="item.Lvalue" placeholder="请输入内容" v-if="IfChange"></el-input>
           </div>
           <div class="box_right">
-            <span class="InfoCata">{{item.Rtitle}}:</span><span class="InfoValue">{{item.Rvalue}}</span>
+            <span class="InfoCata">{{item.Rtitle}}:</span><span class="InfoValue" v-if="!IfChange">{{item.Rvalue}}</span>
+            <el-input v-model="item.Rvalue" placeholder="请输入内容" v-if="IfChange"></el-input>
           </div>
         </div>
       </li>
     </div>
     <div class="contentEnd">
       <span class="companyPara">公司简介</span>
-      <div class="para"><p>{{message}}</p></div>
+      <div class="para">
+        <el-card class="box-card">
+          <p v-if="!IfChange">{{message}}</p>
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 5, maxRows: 10}"
+            placeholder="请输入内容"
+            v-model="message"
+            v-if="IfChange">
+          </el-input>
+        </el-card>
+      </div>
     </div>
   </div>
 </template>
@@ -29,20 +43,28 @@
 export default {
   data () {
     return {
+      IfChange: false,
+      input: '',
       InfoLists: [
-        {id: 1, Ltitle: '名称', Lvalue: '', Rtitle: '编号', Rvalue: ''},
-        {id: 2, Ltitle: '类型', Lvalue: '', Rtitle: '成立时间', Rvalue: ''},
-        {id: 3, Ltitle: '官网', Lvalue: '', Rtitle: '地址', Rvalue: ''},
-        {id: 4, Ltitle: '电话', Lvalue: '', Rtitle: '邮箱', Rvalue: ''},
-        {id: 5, Ltitle: '负责人账号', Lvalue: '', Rtitle: '负责人联系方式', Rvalue: ''}],
-      message: '这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介' +
+        {id: 1, Ltitle: '名称', Lvalue: 'aaaaa', Rtitle: '编号', Rvalue: '5'},
+        {id: 2, Ltitle: '类型', Lvalue: 'suibian', Rtitle: '成立时间', Rvalue: 'buzhidao'},
+        {id: 3, Ltitle: '官网', Lvalue: 'wwwwwww', Rtitle: '地址', Rvalue: 'xxxxxx'},
+        {id: 4, Ltitle: '电话', Lvalue: '1111', Rtitle: '邮箱', Rvalue: '2222'},
+        {id: 5, Ltitle: '负责人账号', Lvalue: 'zzzzz', Rtitle: '负责人联系方式', Rvalue: 'ttttt'}],
+      message: '这里是公司简介这里是公司简介这里是公司简介\n这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介' +
         '这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介' +
         '这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介'
     }
   },
   methods: {
     changeInfo () {
+      this.IfChange = true
       console.log('111')
+    },
+    successChange () {
+      console.log('保存信息')
+      console.log(this.message)
+      this.IfChange = false
     }
   }
 }
@@ -76,6 +98,7 @@ h1#topName{
 }
 .InfoValue{
   width: border-box;
+  padding-left: .8rem;
 }
 .boxMiddle{
   border-bottom: gray 0.2rem dashed;
@@ -103,10 +126,11 @@ li{
 .companyPara{
   font-size: 1rem;
 }
-
 .para{
   margin: 1rem 6rem 6rem;
   font-size: 1rem;
   text-align: left;
+  white-space: pre-wrap;
 }
+
 </style>
