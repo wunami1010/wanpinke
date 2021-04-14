@@ -40,18 +40,20 @@ export default {
 }
 .outer{
   width: 100%;
+  margin-left: 13.75rem;
 }
 .header{
   width: 100%;
-  height: 4rem;
+  height: 9vh;
   line-height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0.2rem 0.2rem 0.5rem rgb(190, 186, 194);
+  border-bottom: 0.01rem solid gray;
 }
 .headername{
   color: rgb(128, 85, 207);
+  font-weight: bold;
 }
 .header_left{
   font-size: 2rem;
@@ -64,11 +66,16 @@ export default {
 }
 .side{
   height: 100vh;
+  width: 13.75rem;
+  position: fixed;
   overflow: hidden;
-  width: 16.25rem;
   color: white;
   background-color: rgb(29, 30, 36);
-  box-shadow: 2px 2px rgb(143, 127, 143);
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+.side::-webkit-scrollbar{
+  display: none;
 }
 .tophead{
   display: flex;

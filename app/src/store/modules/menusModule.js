@@ -1,15 +1,17 @@
 let menus = [
-  {id: 12, level: 1, type: 'link', name: '首页', url: '/'},
+  {id: 12, level: 1, type: 'link', name: '首页', img: '../../../static/ai/首页.png', url: '/Homepage'},
   {
     id: 1,
     level: 1,
     type: 'button',
-    name: '管理信息',
+    name: '信息管理',
+    img: '../../../static/ai/管理.png',
     isSelected: false,
     isExpand: false,
     submenus: [
-      {id: 2, level: 2, type: 'link', name: '公司基本信息', url: 'essential_i/company_i'},
-      {id: 3, level: 2, type: 'link', name: '员工基本信息', url: 'essential_i/company_i'}
+      {id: 2, level: 2, type: 'link', name: '公司信息', url: '/essential_i/company_i'},
+      {id: 3, level: 2, type: 'link', name: '员工列表', url: '/essential_i/staff'},
+      {id: 3, level: 2, type: 'link', name: '员工详情界面', url: '/essential_i/staff_i'}
     ]
   },
   {
@@ -17,11 +19,12 @@ let menus = [
     level: 1,
     type: 'button',
     name: '评分系统',
+    img: '../../../static/ai/对话.png',
     isSelected: false,
     isExpand: false,
     submenus: [
-      {id: 5, level: 2, type: 'link', name: '员工评价', url: 'assess/staff_a'},
-      {id: 6, level: 2, type: 'link', name: '查看员工状态', url: 'assess/staff_s'}
+      {id: 5, level: 2, type: 'link', name: '员工评价', url: '/assess/staff_a'},
+      {id: 6, level: 2, type: 'link', name: '查看员工评分信息', url: '/assess/staff_s'}
     ]
   },
   {
@@ -29,11 +32,12 @@ let menus = [
     level: 1,
     type: 'button',
     name: '人才招聘',
+    img: '../../../static/ai/运营.png',
     isSelected: false,
     isExpand: false,
     submenus: [
-      {id: 8, level: 2, type: 'link', name: '接收到的简历', url: 'recruit/job_m'},
-      {id: 9, level: 2, type: 'link', name: '员工基本信息', url: 'recruit/resume'}
+      {id: 8, level: 2, type: 'link', name: '接收到的简历', url: '/recruit/job_m'},
+      {id: 9, level: 2, type: 'link', name: '员工基本信息', url: '/recruit/resume'}
     ]
   },
   {
@@ -41,11 +45,12 @@ let menus = [
     level: 1,
     type: 'button',
     name: '消息通知',
+    img: '../../../static/ai/公告.png',
     isSelected: false,
     isExpand: false,
     submenus: [
-      {id: 11, level: 2, type: 'link', name: '通知', url: 'news/notice'},
-      {id: 12, level: 2, type: 'link', name: '公告', url: 'news/broad'}
+      {id: 11, level: 2, type: 'link', name: '通知', url: '/news/notice'},
+      {id: 12, level: 2, type: 'link', name: '公告', url: '/news/broad'}
     ]
   }
 ]

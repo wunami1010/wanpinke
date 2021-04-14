@@ -1,5 +1,8 @@
 <template>
   <div class="Login">
+    <transition name="fade">
+      <mess v-if="this.state">{{message}}</mess>
+    </transition>
     <div class="Logincontain">
       <div class="LoginLeft">
         <div class="LoginLeftHeader">
@@ -12,12 +15,12 @@
       <div class="LoginRight">
         <div class="LoginRightcontain">
           <form>
-            <label for="username">用户名:</label>
-            <input name="username" id="username" v-model="username" autocomplete="off">
-            <label for="password">密码:</label>
-            <input name="password" id="password" v-model="password" autocomplete="off">
+            <label for="username"><div class="icon" id="usericon"></div>用户名:</label>
+            <input name="username" id="username" type="text" v-model="username" autocomplete="off">
+            <label for="password"><div class="icon" id="passwordicon"></div>密码:</label>
+            <input name="password" id="password" type="password" v-model="password" autocomplete="off">
             <div class="LoginRightBottom">
-              <button class="signinBtn">登录</button>
+              <div class="signinBtn" type="primary" @click="signin">登录</div>
               <div class="skiptoregister" @click="skipto">没有账号，点此注册</div>
             </div>
           </form>
@@ -28,16 +31,62 @@
 </template>
 
 <script>
+import mess from '../components/message'
 export default {
+  components: {
+    mess
+  },
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      state: false,
+      message: ''
     }
   },
   methods: {
+    timeout () {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(this.state = false, this.message = '')
+        }, 2600)
+      })
+    },
     skipto () {
       this.$router.push({path: '/register'})
+    },
+    signin () {
+      if (this.username === '' || this.password === '') {
+        this.state = true
+        this.message = '用户名或密码为空'
+        return
+      }
+      let obj = {
+        username: this.username,
+        password: this.password
+      }
+      this.$http.post('http://localhost:3000/login', obj)
+        .then((res) => {
+          if (res.data.state === 'success') {
+            sessionStorage.setItem('demo-token', res.data.token)
+            this.state = true
+            this.message = '登陆成功'
+            this.timeout().then(() => {
+              this.$router.push({path: '/Home'})
+            })
+          } else if (res.data.state === 'blank') {
+            this.state = true
+            this.message = '用户名不存在'
+            this.timeout()
+          } else if (res.data.state === 'fail') {
+            this.state = true
+            this.message = '密码错误'
+            this.timeout()
+          }
+        }, err => {
+          sessionStorage.setItem('demo-token', '')
+          console.log(err)
+        })
     }
   }
 }
@@ -104,6 +153,7 @@ export default {
 }
 .LoginRightcontain form label{
   text-align: left;
+  display: flex;
 }
 .LoginRightBottom{
   margin-top: 3rem;
@@ -117,8 +167,32 @@ export default {
   border: none;
   border-radius: 0.6rem;
   color: white;
+  line-height: 2rem;
+  cursor: pointer;
 }
 .skiptoregister{
   cursor: pointer;
+}
+.mess{
+  position: absolute;
+  top: 5%;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.icon{
+  width: 1.4rem;
+  height: 1.4rem;
+}
+#usericon{
+  background-image: url('../../static/ai/用户.png');
+  background-size: cover;
+}
+#passwordicon{
+  background-image: url('../../static/ai/密码.png');
+  background-size: cover;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="content">
     <div class="menuList" :class="'level'+menu.level" v-for="menu in menus" :key="menu.id">
       <div v-if="menu.type==='link'" class="link">
-        <router-link :to='menu.url' @click.native="toggle(menu)">
+        <router-link :to="{path: menu.url}" @click.native="toggle(menu)">
           {{menu.name}}
         </router-link>
       </div>

@@ -22,7 +22,18 @@ export default new Router({
       path: '/Home',
       name: 'Home',
       component: Home,
+      redirect: '/Homepage',
       children: [
+        {
+          path: '/Homepage',
+          name: 'Homepage',
+          component: resolve => require(['../page/Homepage.vue'], resolve)
+        },
+        {
+          path: '/essential_i/staff',
+          name: 'staff',
+          component: resolve => require(['../page/essential_i/staff'], resolve)
+        },
         {
           path: '/essential_i/company_i',
           name: 'companyI',
