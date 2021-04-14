@@ -132,4 +132,8 @@ li{
   text-align: left;
   white-space: pre-wrap;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 86c8a49e4caf753f79d69d9944befab32d6078e1
 </style>
