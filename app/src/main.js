@@ -4,13 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-<<<<<<< HEAD
 import axios from 'axios'
-import '../static/css/color-dark.css'
-import '../static/css/main.css'
 
-=======
->>>>>>> 86c8a49e4caf753f79d69d9944befab32d6078e1
 import { Input, Card } from 'element-ui'
 Vue.use(Input)
 Vue.use(Card)

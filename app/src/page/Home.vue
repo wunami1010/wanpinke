@@ -2,7 +2,7 @@
   <div class="box">
     <div class="side">
       <div class="tophead">
-        <div class="logo"></div>
+        <img class="logo" src="../../static/ai/logo.png">
         <div class="headername">Onepick 万品客</div>
       </div>
       <tree-view-item :menus="menus"></tree-view-item>
@@ -40,7 +40,7 @@ export default {
 }
 .outer{
   width: 100%;
-  margin-left: 13.75rem;
+  margin-left: 12rem;
 }
 .header{
   width: 100%;
@@ -52,7 +52,7 @@ export default {
   border-bottom: 0.01rem solid gray;
 }
 .headername{
-  color: rgb(128, 85, 207);
+  color: white;
   font-weight: bold;
 }
 .header_left{
@@ -66,7 +66,7 @@ export default {
 }
 .side{
   height: 100vh;
-  width: 13.75rem;
+  width: 12rem;
   position: fixed;
   overflow: hidden;
   color: white;
@@ -78,16 +78,12 @@ export default {
   display: none;
 }
 .tophead{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  margin-top: 2rem;
   padding: 0 1.2rem;
 }
 .logo{
-  background-image: url('../../static/ai/logo.png');
   width: 3rem;
   height: 3rem;
-  background-size: cover;
 }
 .headername{
   height: 6rem;

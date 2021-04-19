@@ -8,8 +8,8 @@
       </div>
       <div v-if="menu.type==='button'">
         <div class="ebtn" :class="{select:menu.isSelected, expand:menu.isExpand}" @click="toggle(menu)">
+          <img :src="menu.img" alt="icon">
           {{menu.name}}
-          <div class="icon"></div>
         </div>
         <transition name="fade">
           <div class="sub" v-show="menu.isExpand" v-if="menu.submenus">
@@ -57,17 +57,16 @@ a{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 8.75rem;
+  width: 7.75rem;
   height: 6rem;
-  padding: 0 3.75rem;
+  padding: 0 2.75rem 0 1.75rem;
   font-size: 0.9rem;
   border-right: 1px solid rgb(5, 5, 77);
 }
 .link{
-  width: 8.75rem;
+  width: 12rem;
   height: 5rem;
   line-height: 5rem;
-  padding: 0 2.5rem;
   font-size: 0.8rem;
 }
 .link:hover,
@@ -75,12 +74,9 @@ a{
   background-color: rgb(105, 107, 151);
   cursor: pointer;
 }
-.icon{
-  background-image: url('../../static/ai/ai-arrow-down.png');
-  transform: rotate(90deg);
-  width: 20px;
-  height: 20px;
-  background-size: cover;
+.ebtn img{
+  width: 2rem;
+  height: 2rem;
 }
 .fade-enter-active,
 .fade-leave-active{

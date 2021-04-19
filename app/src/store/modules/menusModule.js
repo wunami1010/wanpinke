@@ -1,11 +1,11 @@
 let menus = [
-  {id: 12, level: 1, type: 'link', name: '首页', img: '../../../static/ai/首页.png', url: '/Homepage'},
+  {id: 12, level: 1, type: 'link', name: '首页', img: '../../static/ai/首页.png', url: '/Homepage'},
   {
     id: 1,
     level: 1,
     type: 'button',
     name: '信息管理',
-    img: '../../../static/ai/管理.png',
+    img: '../../static/ai/管理.png',
     isSelected: false,
     isExpand: false,
     submenus: [
@@ -19,7 +19,7 @@ let menus = [
     level: 1,
     type: 'button',
     name: '评分系统',
-    img: '../../../static/ai/对话.png',
+    img: '../../static/ai/对话.png',
     isSelected: false,
     isExpand: false,
     submenus: [
@@ -32,7 +32,7 @@ let menus = [
     level: 1,
     type: 'button',
     name: '人才招聘',
-    img: '../../../static/ai/运营.png',
+    img: '../../static/ai/运营.png',
     isSelected: false,
     isExpand: false,
     submenus: [
@@ -45,7 +45,7 @@ let menus = [
     level: 1,
     type: 'button',
     name: '消息通知',
-    img: '../../../static/ai/公告.png',
+    img: '../../static/ai/公告.png',
     isSelected: false,
     isExpand: false,
     submenus: [
