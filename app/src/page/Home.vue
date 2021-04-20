@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="bbox">
     <div class="side">
       <div class="tophead">
         <img class="logo" src="../../static/ai/logo.png">
@@ -14,7 +14,9 @@
         <div class="header_right">头像</div>
       </div>
       <div class="contain">
-        <router-view/>
+        <div class="Bcontent">
+          <router-view/>
+        </div>
       </div>
     </div>
   </div>
@@ -35,12 +37,26 @@ export default {
 </script>
 
 <style scoped>
-.box{
+.bbox{
   display: flex;
+  position: relative;
+  overflow: hidden;
+  overflow-x: auto;
+  overflow-y:auto;
 }
 .outer{
   width: 100%;
+  height: 100vh;
   margin-left: 12rem;
+}
+.Bcontent{
+  padding: 0;
+  margin: 2rem;
+}
+.contain{
+  min-width: 60rem;
+  max-width: 88rem;
+  padding-bottom: 2rem;
 }
 .header{
   width: 100%;

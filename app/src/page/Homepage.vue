@@ -1,7 +1,7 @@
 <template>
-  <div class="content">
-    <div class="picturerun">
-      <div></div>
+  <div class="hcontent">
+    <div class="picturehome">
+      <img src="../../static/ai/首页背景.jpg">
     </div>
     <div class="comBtn">
       <div class="joinorgan">加入公司</div>
@@ -16,13 +16,14 @@ export default {
 </script>
 
 <style scoped>
-.content{
-  height: 91vh;
-  background-color: rgb(240, 240, 242);
+.hcontent{
+  padding: 0;
+  border: 0.08rem solid gray;
 }
 .comBtn{
   display: flex;
   justify-content: space-around;
+  margin-bottom: 2rem;
 }
 .comBtn div{
   margin-top: 5vh;
@@ -33,8 +34,7 @@ export default {
   color: rgb(182, 180, 187);
   font-size: 2rem;
 }
-.picturerun{
-  background-color: rgb(207, 202, 202);
-  height: 60vh;
+.picturehome img{
+  width: 100%;
 }
 </style>
