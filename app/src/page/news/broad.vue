@@ -1,53 +1,39 @@
 <template>
     <div class="box">
-        <el-row :gutter="20">
+        <el-row :gutter="20" type="flex" justify="space-between">
             <div class="user">
-            <el-col :span="8">
-                <el-row>
-                    <el-col>
-                        <el-card shadow="hover" class="mgb20">
-                            <div class="user-info">
-                                <img src="static/ai/default_scu.jpg" class="user-avator" alt="">
-                                <h1>&nbsp;&nbsp;{{name}}</h1>
-                                <div>{{role}}</div>
-                            </div>
-                            <div class="user-info-list">
-                                <p>上次登录时间：<span>2018-01-01</span></p>
-                                <p>上次登录地点：<span>杭州</span></p>
-                            </div>
-                        </el-card>
-                    </el-col>
-                </el-row>
-            </el-col>
+                <div class="user-info">
+                    <img src="static/ai/default_scu.jpg" class="user-avator" alt="">
+                    <h1>&nbsp;&nbsp;{{name}}</h1>
+                    <div>{{role}}</div>
+                </div>
+                <div class="user-info-list">
+                    <p>上次登录时间：<span>2021-04-19</span></p>
+                    <p>上次登录地点：<span>杭州</span></p>
+                </div>
             </div>
             <div class="list">
-            <el-col :span="8">
-                <el-card shadow="hover" :body-style="{ height: '304px'}">
-                      <div slot="header" class="clearfix">
-                          <div class="crumbs">待办事项</div>
-                          <el-button style="float: right; padding: 6px 0" type="text">添加</el-button>
-                      </div>
-                      <p></p>
-                      <el-table :data="todoList" :show-header="false" height="304" style="width: 100%;font-size:14px;">
-                          <el-table-column width="40">
-                              <template slot-scope="scope">
-                                  <el-checkbox v-model="scope.row.status"></el-checkbox>
-                              </template>
-                          </el-table-column>
-                          <el-table-column>
-                              <template slot-scope="scope">
-                                  <div class="todo-item" :class="{'todo-item-del': scope.row.status}">{{scope.row.title}}</div>
-                              </template>
-                          </el-table-column>
-                      </el-table>
-                </el-card>
-            </el-col>
+                <div class="crumbs">待办事项</div>
+                <el-button style="float: right; padding: 6px 0" type="text">添加</el-button>
+                <el-table :data="todoList" :show-header="false" height="304" style="width:30rem;font-size:14px;">
+                    <el-table-column width="40">
+                        <template slot-scope="scope">
+                            <el-checkbox v-model="scope.row.status"></el-checkbox>
+                        </template>
+                    </el-table-column>
+                    <el-table-column>
+                        <template slot-scope="scope">
+                            <div class="todo-item" :class="{'todo-item-del': scope.row.status}">{{scope.row.title}}</div>
+                        </template>
+                    </el-table-column>
+                </el-table>
             </div>
             <div class="notice">
-                <el-col :span="8">
+                <div class="crumbs">&nbsp;</div>
+                <div class="crumbs">&nbsp;</div>
                 <div class="crumbs">通知栏</div>
                 <div class="container">
-                <el-tabs v-model="message">
+                    <el-tabs v-model="message">
                     <el-tab-pane :label="`未读消息(${unread.length})`" name="first">
                         <el-table :data="unread" :show-header="false" style="width: 100%">
                             <el-table-column>
@@ -71,7 +57,7 @@
                                         <span class="message-title">{{scope.row.title}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="date" width="150"></el-table-column>
+                                <el-table-column prop="date" width="180"></el-table-column>
                                 <el-table-column width="120">
                                     <template slot-scope="scope">
                                         <el-button type="danger" @click="handleDel(scope.$index)">删除</el-button>
@@ -88,7 +74,7 @@
                                         <span class="message-title">{{scope.row.title}}</span>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="date" width="150"></el-table-column>
+                                <el-table-column prop="date" width="180"></el-table-column>
                                 <el-table-column width="120">
                                     <template slot-scope="scope">
                                         <el-button @click="handleRestore(scope.$index)">还原</el-button>
@@ -97,9 +83,8 @@
                             </el-table>
                         </template>
                     </el-tab-pane>
-                </el-tabs>
+                    </el-tabs>
                 </div>
-                </el-col>
             </div>
         </el-row>
     </div>
@@ -138,20 +123,20 @@ export default {
       message: 'first',
       showHeader: false,
       unread: [{
-        date: '2018-04-19 20:00:00',
-        title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
+        date: '2021-04-19 20:00:00',
+        title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护，请提前做好准备'
       },
       {
-        date: '2018-04-19 21:00:00',
-        title: '今晚12点整发大红包，先到先得'
+        date: '2021-04-15 20:00:00',
+        title: '【公司通知】今晚12点整发大红包，先到先得'
       }],
       read: [{
-        date: '2018-04-19 20:00:00',
-        title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
+        date: '2021-04-02 12:00:00',
+        title: '【公司通知】清明节放假日期为四月三号-四月五号'
       }],
       recycle: [{
-        date: '2018-04-19 20:00:00',
-        title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护'
+        date: '2021-04-05 20:00:00',
+        title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护，请提前做好准备'
       }]
     }
   },
@@ -181,9 +166,8 @@ export default {
 
 <style scoped>
 .box{
-  margin:2rem 2rem;
   background:#f0f0f0;
-  padding: 1.2rem;
+  padding: 10px;
 }
 .box img{
   width:20%;
@@ -192,22 +176,21 @@ export default {
 }
 .el-row {
     margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
 }
 .user{
-    width: 30rem;
-    float: left;
-    background: white;
-    margin: 15px;
-    height: 18rem;
+    float: right;
+    width:30rem;
+    height: 20rem;
+    margin: auto;
 }
 .user-info {
     display: flex;
     align-items: center;
     padding-bottom: 20px;
     border-bottom: 2px solid black;
-    margin-bottom: 20px;
     float: left;
-    padding: 1rem;
 }
 .user-avator {
     width: 120px;
@@ -219,13 +202,21 @@ export default {
     color: grey;
     line-height: 30px;
     text-align: left;
-    margin: 5px;
 }
 .user-info-list span {
     margin-left: 70px;
 }
-.mgb20 {
+.mg {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.list{
+    background: white;
+    margin: auto;
+    width:30rem;
+    height: 20rem;
+    float: left;
 }
 .todo-item {
     font-size: 15px;
@@ -236,26 +227,15 @@ export default {
     text-decoration: line-through;
     color: #999;
 }
-.list{
-    background:white;
-    padding: 1rem;
-    margin: 15px;
-    font-size: 25px;
-    float: right;
-    width: 35rem;
-    height: 16rem;
-}
-.notice{
-    background: white;
-    margin: 15px;
-    width: 70rem;
-    float: left;
-    height: 20rem;
-}
 .message-title{
     cursor: pointer;
 }
 .handle-row{
     margin-top: 30px;
+}
+.notice{
+    margin: auto;
+    width:67rem;
+    float: left;
 }
 </style>
