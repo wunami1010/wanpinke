@@ -18,7 +18,8 @@ export default {
 <style scoped>
 .hcontent{
   padding: 0;
-  border: 0.08rem solid gray;
+  border: 0.08rem solid lightgray;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
 }
 .comBtn{
   display: flex;

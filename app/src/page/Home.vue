@@ -11,7 +11,7 @@
       <div class="header">
         <div class="header_left">
         </div>
-        <div class="header_right">头像</div>
+        <div class="header_right"><img src="../../static/ai/default_scu.jpg"></div>
       </div>
       <div class="contain">
         <div class="Bcontent">
@@ -76,9 +76,14 @@ export default {
   width: 20rem;
 }
 .header_right{
-  width: 20rem;
-  align-self: flex-end;
+  width: 16rem;
   float: right;
+  display: flex;
+  align-items: center;
+}
+.header_right img{
+  height: 2rem;
+  width: 2rem;
 }
 .side{
   height: 100vh;
