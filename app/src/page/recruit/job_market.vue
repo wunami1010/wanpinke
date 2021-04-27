@@ -1,221 +1,173 @@
 <template>
   <div class="contentWrapper">
-    <!--    <div class="content">-->
-    <div class="AllShow sizeStyle">
-      <div class="ShowInfo" v-show="IsShow">
-        <span class="infoName tag">XXX</span>
-        <span class="tag">男</span><i class="tagSplit"></i>
-        <span class="tag">杭州电子科技大学</span><i class="tagSplit"></i>
-        <span class="tag">杭州</span><i class="tagSplit"></i>
-        <span class="tag">23岁</span>
-      </div>
-      <img class="outImg" @click="IfShow" v-show="IsShow" :src="outUrl">
-    </div>
-    <div class="mainBox" v-show="!IsShow">
-      <div class="preview">
-        <div class="infoLabel">
-          <p class="infoName">XXX</p>
-          <span class="tag">男</span><i class="tagSplit"></i>
-          <span class="tag">杭州电子科技大学</span><i class="tagSplit"></i>
-          <span class="tag">杭州</span><i class="tagSplit"></i>
-          <span class="tag">23岁</span>
-        </div>
-        <div class="HeadBox">
-          <img class="HeadImg">
-          <img class="inImg" @click="changeShow" v-show="!IsShow" :src="inUrl">
-        </div>
-      </div>
-      <div class="gap"><h3 class="gapTitle">求职意向</h3><hr class="modelSplit"></div>
-      <div class="expect">
-        <span class="tag">求职岗位：项目经理</span><i class="tagSplit"></i>
-        <span class="tag">意向城市：杭州</span><i class="tagSplit"></i>
-        <span class="tag">期待薪资：11k~13k</span><i class="tagSplit"></i>
-        <span class="tag">求职意向：随时到岗</span>
-      </div>
-      <div class="gap"><h3 class="gapTitle">教育经历</h3><hr class="modelSplit"></div>
-      <div class="education">
-        <div class="midName">
-          <div class="left"><span class="placeName">杭州电子科技大学</span><span>本科</span><span>计算机科学与技术专业</span></div>
-          <div class="right"><span class="Time">2014.9-2018.6</span></div>
-        </div>
-        <div class="placeMark">
-          <span>绩点：4.4/5.0，成绩排名：前30%</span>
-        </div>
-      </div>
-      <div class="gap"><h3 class="gapTitle">工作经历</h3><hr class="modelSplit"></div>
-      <div class="work">
-        <div class="midName">
-          <div class="left"><span class="placeName">阿里巴巴集团</span><span>前端工程师</span></div>
-          <div class="right"><span class="Time">2018.8-2020.7</span></div>
-        </div>
-        <div class="placeMark">
-          <span>在原先单位的工作情况工作经历</span>
-          <span>在原先单位的工作情况工作经历</span>
-          <span>在原先单位的工作情况工作经历</span>
-        </div>
-      </div>
-      <div class="gap"><h3 class="gapTitle">项目经历</h3><hr class="modelSplit"></div>
-      <div class="work">
-        <div class="midName">
-          <div class="left"><span class="placeName">xx项目负责人</span></div>
-          <div class="right"><span class="Time">2019.5</span></div>
-        </div>
-        <div class="placeMark">
-          <span>项目经历详述</span>
-        </div>
-      </div>
-      <div class="gap"><h3 class="gapTitle">个人荣誉</h3><hr class="modelSplit"></div>
-      <div class="honor">
-        <div class="placeMark">
-          <span>个人荣誉获得情况</span>
-          <span>个人荣誉获得情况</span>
-          <span>个人荣誉获得情况</span>
-        </div>
-      </div>
+    <div class="AllList">
+      <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+        <el-tab-pane :label="`未读简历(${UnReadResume.length})`" name="first">
+          <el-table :data="UnReadResume" stripe style="width: 100%">
+            <el-table-column width="100%" align="right">
+              <template slot-scope="scope">
+                <span class="InfoStyle">{{scope.row.name}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column width="50%" align="center">
+              <template slot-scope="scope">
+                <span class="InfoStyle">{{scope.row.gender}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column width="180%" align="center">
+              <template slot-scope="scope">
+                <span class="InfoStyle">{{scope.row.graduated}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column width="50%" align="center">
+              <template slot-scope="scope">
+                <span class="InfoStyle">{{scope.row.education}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column>
+              <template slot-scope="scope">
+                <span class="InfoStyle">{{scope.row.year}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column>
+              <template slot-scope="scope">
+                <el-button @click="handleMore(scope.$index)">查看详情</el-button>
+                <el-button @click="handleRead(scope.$index)">标为已读</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane :label="`已读简历(${ReadedResume.length})`" name="second">
+          <el-table :data="ReadedResume" stripe style="width: 100%">
+            <el-table-column prop="name" width="100%" align="right"></el-table-column>
+            <el-table-column prop="gender" width="50%" align="center"></el-table-column>
+            <el-table-column prop="graduated" width="180%" align="center"></el-table-column>
+            <el-table-column prop="education" width="50%" align="center"></el-table-column>
+            <el-table-column prop="year"></el-table-column>
+            <el-table-column>
+              <template slot-scope="scope">
+                <el-button @click="handleUnread(scope.$index)">标为未读</el-button>
+                <el-button @click="handleRecycle(scope.$index)" type="danger">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+        <el-tab-pane :label="`回收站(${RecycleResume.length})`" name="third">
+          <el-table :data="RecycleResume" stripe style="width: 100%">
+            <el-table-column prop="name" width="100%" align="right"></el-table-column>
+            <el-table-column prop="gender" width="50%" align="center"></el-table-column>
+            <el-table-column prop="graduated" width="180%" align="center"></el-table-column>
+            <el-table-column prop="education" width="50%" align="center"></el-table-column>
+            <el-table-column prop="year"></el-table-column>
+            <el-table-column>
+              <template slot-scope="scope">
+                <el-button @click="handleReagain(scope.$index)">恢复</el-button>
+                <el-button @click="deleteFoever(scope.$index)" type="danger">永久删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
-  <!--  </div>-->
 </template>
 
 <script>
 export default {
   data () {
     return {
-      IsShow: true,
-      inUrl: ('../../../static/ai/收起.png'),
-      outUrl: ('../../../static/ai/下拉.png')
+      activeName: 'first',
+      UnReadResume: [{
+        name: '张三',
+        gender: '男',
+        graduated: '杭州电子科技大学',
+        education: '本科',
+        year: '23岁'
+      }, {
+        name: '张三',
+        gender: '男',
+        graduated: '杭州电子科技大学',
+        education: '本科',
+        year: '23岁'
+      }, {
+        name: '张三',
+        gender: '男',
+        graduated: '杭州电子科技大学',
+        education: '本科',
+        year: '23岁'
+      }, {
+        name: '张三',
+        gender: '男',
+        graduated: '杭州电子科技大学',
+        education: '本科',
+        year: '23岁'
+      }],
+      ReadedResume: [{
+        name: '李四',
+        gender: '男',
+        graduated: '杭州电子科技大学',
+        education: '本科',
+        year: '23岁'
+      }, {
+        name: '李四',
+        gender: '男',
+        graduated: '杭州电子科技大学',
+        education: '本科',
+        year: '23岁'
+      }, {
+        name: '李四',
+        gender: '男',
+        graduated: '杭州电子科技大学',
+        education: '本科',
+        year: '23岁'
+      }],
+      RecycleResume: [{
+        name: '王五',
+        gender: '男',
+        graduated: '杭州电子科技大学',
+        education: '本科',
+        year: '23岁'
+      }]
     }
   },
   methods: {
-    IfShow () {
-      console.log(this.IsShow)
-      if (this.IsShow === true) {
-        this.IsShow = false
-        console.log(this.IsShow)
-      } else {
-        this.isShow = true
-        console.log(this.IsShow)
-      }
+    handleClick (tab, event) {
+      console.log(tab, event)
     },
-    changeShow () {
-      this.IsShow = true
+    handleMore (index) {
+      console.log(index)
+      this.$router.push({path: '/recruit/resume'})
+    },
+    handleRead (index) {
+      const item = this.UnReadResume.splice(index, 1)
+      console.log(item.name)
+      this.ReadedResume = item.concat(this.ReadedResume)
+    },
+    handleUnread (index) {
+      const item = this.ReadedResume.splice(index, 1)
+      console.log(item.name)
+      this.UnReadResume = item.concat(this.UnReadResume)
+    },
+    handleRecycle (index) {
+      const item = this.ReadedResume.splice(index, 1)
+      console.log(item.name)
+      this.RecycleResume = item.concat(this.RecycleResume)
+    },
+    handleReagain (index) {
+      const item = this.RecycleResume.splice(index, 1)
+      console.log(item.name)
+      this.ReadedResume = item.concat(this.ReadedResume)
+    },
+    deleteFoever (index) {
+      const item = this.RecycleResume.splice(index, 1)
+      console.log(item.name)
     }
   }
 }
 </script>
 
 <style scoped>
-.sizeStyle{
-  margin: .5rem 3rem;
-  background-color: white;
-}
-.AllShow{
-  /*height: 3rem;*/
-  display: flex;
-  justify-content: space-between;
-}
-.outImg{
-  margin-right: 3rem;
-  /*justify-content: flex-end;*/
-}
-.ShowInfo{
-  display: flex;
-  padding: 2rem 3rem;
-}
-span{
-  color: gray;
-  opacity: 90%;
-  padding-right: .4rem;
-}
 .contentWrapper{
-  background-color: rgb(240, 240, 242);
-  border: solid 4px #bbbbbb;
-  height: 60rem;
-  padding: 0 3rem 3rem;
-}
-.mainBox{
-  background-color: white;
-  margin: .5rem 3rem;
-  padding: 4rem;
-}
-.preview{
-  display: flex;
-}
-.infoLabel{
-  flex: 1;
-}
-.tag{
-  /*flex: 1;*/
-  color: gray;
-  opacity: 90%;
-}
-.tagSplit:before{
-  content: '|';
-  margin: .2rem;
-}
-.gap{
-  margin-top: 2rem;
-  display: flex;
-  /*padding: 0 5rem;*/
-}
-h3.gapTitle{
-  color: #6d4fc9;
-  font-size: 1rem;
-}
-.modelSplit{
-  flex: 1;
-  height: .1rem;
-  margin: 2rem 0rem 2rem 4rem;
-  background-color: #987cb9;
-}
-.HeadBox{
-  flex:1;
-  display: flex;
-  justify-content: space-between;
-}
-.HeadImg{
-  background-image: url('../../../static/ai/头像.png');
-  height: 5rem;
-  width: 5rem;
-  display: flex;
-  margin-left: 5rem;
-  background-size: cover;
-}
-.outImg{
-  height: 5rem;
-  width: 5rem;
-  display: flex;
-  justify-content: flex-end;
-}
-.inImg{
-  height: 5rem;
-  width: 5rem;
-  margin-left: 5rem;
-}
-.expect{
-  display: flex;
-  justify-content: space-between;
-}
-.midName{
-  display: flex;
-  justify-content: space-between;
-}
-.placeName{
-  /*flex: 1;*/
-}
-.Time{
-  /*flex: 1;*/
-}
-.placeName{
-  color: #2c3e50;
-  font-size: 1rem;
-  font-weight: bolder;
-  padding-right: .3rem;
-}
-.placeMark{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  /*justify-content: space-between;*/
+  margin: 2rem;
 }
 </style>
