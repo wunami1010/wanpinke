@@ -26,6 +26,12 @@
                             <div class="todo-item" :class="{'todo-item-del': scope.row.status}">{{scope.row.title}}</div>
                         </template>
                     </el-table-column>
+                    <el-table-column width="60">
+                            <template >
+                                <i class="el-icon-edit"></i>
+                                <i class="el-icon-delete"></i>
+                            </template>
+                    </el-table-column>
                 </el-table>
             </div>
             <div class="notice">
@@ -239,3 +245,4 @@ export default {
     float: left;
 }
 </style>
+
