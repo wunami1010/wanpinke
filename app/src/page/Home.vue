@@ -119,12 +119,12 @@ export default {
   display: flex;
   position: relative;
   overflow: hidden;
-  overflow-x: auto;
   overflow-y:auto;
 }
 .outer{
   width: 100%;
   height: 100vh;
+  overflow-x: auto;
   margin-left: 12rem;
 }
 .Bcontent{
@@ -132,13 +132,14 @@ export default {
   margin: 2rem;
 }
 .contain{
-  min-width: 60rem;
+  min-width: 76rem;
   max-width: 88rem;
   padding-bottom: 2rem;
 }
 .header{
   width: 100%;
   height: 9vh;
+  min-width: 76rem;
   line-height: 4rem;
   display: flex;
   align-items: center;
@@ -156,14 +157,14 @@ export default {
   width: 20rem;
 }
 .header_right{
-  width: 20rem;
-  align-self: flex-end;
+  width: 10rem;
   float: right;
   padding-right: 50px;
 }
 .side{
   height: 100vh;
   width: 12rem;
+  z-index: 1;
   position: fixed;
   overflow: hidden;
   color: white;
