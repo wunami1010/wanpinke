@@ -65,9 +65,9 @@
         </div>
       </div>
       <div class="gap"><h3 class="gapTitle">个人荣誉</h3><hr class="modelSplit"></div>
-      <div class="honor" v-for="item in Honor" :key="item.index">
+      <div class="honor">
         <div class="placeMark">
-          <span>{{item}}</span>
+          <span>{{Honor}}</span>
         </div>
       </div>
     </div>
@@ -121,7 +121,7 @@ export default {
         intro: '项目经历详情',
         time: '2019.5'
       }],
-      Honor: ['个人荣誉', '个人荣誉']
+      Honor: '个人荣誉'
     }
   },
   methods: {
