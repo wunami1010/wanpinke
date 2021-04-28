@@ -80,6 +80,7 @@ export default {
   data () {
     return {
       resumeInfo: [{
+        id: '1',
         name: '张三',
         gender: '男',
         graduated: '杭州电子科技大学',
@@ -92,25 +93,30 @@ export default {
         aimMoney: '11k~13k'
       }],
       EduExp: [{
+        id: '1',
         school: '杭州电子科技大学',
         education: '本科',
         major: '计算机科学与技术',
-        time: '2019.9-2023.6',
+        time: '2015.9-2019.6',
         experience: '绩点：4.4/5.0，成绩排名：前30%'
       },
       {
+        id: '1',
         school: '浙江大学',
         education: '硕士',
+        time: '2019.9-2022.6',
         major: '计算机科学与技术',
         experience: 'xxxxxxxxx'
       }],
       WorkExp: [{
+        id: '1',
         company: '阿里巴巴',
         job: '前端工程师',
         time: '2018.8-2020.7',
         experience: '在原先单位的工作情况工作经历'
       }],
       ProExp: [{
+        id: '1',
         role: '项目负责人',
         intro: '项目经历详情',
         time: '2019.5'
