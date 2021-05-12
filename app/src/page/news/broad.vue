@@ -1,44 +1,13 @@
 <template>
     <div class="box">
         <el-row :gutter="20" type="flex" justify="space-between">
-            <div class="user">
-                <div class="user-info">
-                    <img src="static/ai/default_scu.jpg" class="user-avator" alt="">
-                    <h1>&nbsp;&nbsp;{{name}}</h1>
-                    <div>{{role}}</div>
-                </div>
-                <div class="user-info-list">
-                    <p>上次登录时间：<span>2021-04-19</span></p>
-                    <p>上次登录地点：<span>杭州</span></p>
-                </div>
-            </div>
-            <div class="list">
-                <div class="crumbs">待办事项</div>
-                <el-button style="float: right; padding: 6px 0" type="text">添加</el-button>
-                <el-table :data="todoList" :show-header="false" height="304" style="width:30rem;font-size:14px;">
-                    <el-table-column width="40">
-                        <template slot-scope="scope">
-                            <el-checkbox v-model="scope.row.status"></el-checkbox>
-                        </template>
-                    </el-table-column>
-                    <el-table-column>
-                        <template slot-scope="scope">
-                            <div class="todo-item" :class="{'todo-item-del': scope.row.status}">{{scope.row.title}}</div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column width="60">
-                            <template >
-                                <i class="el-icon-edit"></i>
-                                <i class="el-icon-delete"></i>
-                            </template>
-                    </el-table-column>
-                </el-table>
-            </div>
+        <el-breadcrumb separator=">">
+        <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>消息通知</el-breadcrumb-item>
+        </el-breadcrumb>
+        <h1>&nbsp;</h1>
             <div class="notice">
-                <div class="crumbs">&nbsp;</div>
-                <div class="crumbs">&nbsp;</div>
-                <div class="crumbs">通知栏</div>
-                <div class="container">
+                <div class="sname">通知栏</div>
                     <el-tabs v-model="message">
                     <el-tab-pane :label="`未读消息(${unread.length})`" name="first">
                         <el-table :data="unread" :show-header="false" style="width: 100%">
@@ -89,8 +58,42 @@
                             </el-table>
                         </template>
                     </el-tab-pane>
-                    </el-tabs>
-                </div>
+                </el-tabs>
+            </div>
+            <div class="s_contain">
+                 <div class="s_left">
+                     <div class="user-info">
+                         <img src="static/ai/default_scu.jpg" class="user-avator" >
+                         <h1>&nbsp;&nbsp;{{name}}</h1>
+                         <div>{{role}}</div>
+                     </div>
+                     <div class="user-info-list">
+                         <p>上次登录时间：<span>2021-04-19</span></p>
+                         <p>上次登录地点：<span>杭州</span></p>
+                     </div>
+                 </div>
+                 <div class="s_right">
+                     <div class="sname">待办事项</div>
+                     <el-button style="float: right; padding: 6px 0" type="text">添加</el-button>
+                     <el-table :data="todoList" :show-header="false" height="304" style="width:40rem;font-size:14px;">
+                         <el-table-column width="80">
+                             <template slot-scope="scope">
+                                 <el-checkbox v-model="scope.row.status"></el-checkbox>
+                             </template>
+                         </el-table-column>
+                         <el-table-column>
+                             <template slot-scope="scope">
+                                 <div class="todo-item" :class="{'todo-item-del': scope.row.status}">{{scope.row.title}}</div>
+                             </template>
+                         </el-table-column>
+                         <el-table-column width="60">
+                                 <template >
+                                     <i class="el-icon-edit"></i>
+                                     <i class="el-icon-delete"></i>
+                                 </template>
+                         </el-table-column>
+                     </el-table>
+                 </div>
             </div>
         </el-row>
     </div>
@@ -98,7 +101,6 @@
 
 <script>
 export default {
-  name: 'dashboard',
   data () {
     return {
       name: localStorage.getItem('ms_username'),
@@ -172,7 +174,6 @@ export default {
 
 <style scoped>
 .box{
-  background:#f0f0f0;
   padding: 10px;
 }
 .box img{
@@ -185,18 +186,54 @@ export default {
     display: flex;
     flex-wrap: wrap;
 }
-.user{
-    float: right;
-    width:30rem;
-    height: 20rem;
-    margin: auto;
+.sname{
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.s_contain{
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-around;
+}
+.s_left{
+  flex: 2;
+  padding: 10px;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 2.6rem;
+  border: 0.08rem solid lightgray;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
+}
+.s_left div{
+  margin-top: 2rem;
+}
+.s_right{
+  padding: 5px 5px 5px 5px;
+  flex: 3;
+  height: 25rem;
+  border: 0.08rem solid rgb(202, 191, 191);
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
+}
+.s_rightheader{
+  height: 3.6rem;
+  padding-left: 2rem;
+  padding-right: 3rem;
+  border-bottom: 0.08rem solid lightgray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 .user-info {
     display: flex;
     align-items: center;
     padding-bottom: 20px;
     border-bottom: 2px solid black;
-    float: left;
 }
 .user-avator {
     width: 120px;
@@ -212,22 +249,9 @@ export default {
 .user-info-list span {
     margin-left: 70px;
 }
-.mg {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-}
-.list{
-    background: white;
-    margin: auto;
-    width:30rem;
-    height: 20rem;
-    float: left;
-}
 .todo-item {
     font-size: 15px;
     color:black;
-    line-height: 30px;
 }
 .todo-item-del {
     text-decoration: line-through;
@@ -236,12 +260,14 @@ export default {
 .message-title{
     cursor: pointer;
 }
-.handle-row{
-    margin-top: 30px;
-}
 .notice{
+    padding: 5px 5px 5px 5px;
     margin: auto;
-    width:67rem;
+    width:100%;
     float: left;
+    justify-content: space-around;
+    align-items: center;
+    border: 0.08rem solid lightgray;
+    box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
 }
 </style>

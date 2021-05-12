@@ -69,6 +69,7 @@ export default {
         .then((res) => {
           if (res.data.state === 'success') {
             sessionStorage.setItem('demo-token', res.data.token)
+            localStorage.setItem('ms_username', this.ruleForm.username)
             this.state = true
             this.message = '登陆成功'
             this.timeout().then(() => {

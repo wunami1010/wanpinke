@@ -1,4 +1,10 @@
 <template>
+<div>
+  <el-breadcrumb separator=">">
+  <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
+  <el-breadcrumb-item>员工详情界面</el-breadcrumb-item>
+  </el-breadcrumb>
+  <h1>&nbsp;</h1>
   <div class="box">
     <img src="static/ai/default_scu.jpg">
     <el-button class="changeBtn" @click="changeInfo" v-if="!IfChange" style="float:right">修改信息</el-button>
@@ -33,6 +39,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
 export default {
@@ -65,9 +72,13 @@ export default {
 
 <style scoped>
 .box{
-  margin:2rem 2rem;
-  background:rgb(205, 204, 206);
-  padding: 1.2rem;
+    padding:10px 10px 0px 0px;
+    margin: auto;
+    width:100%;
+    justify-content: space-around;
+    align-items: center;
+    border: 0.08rem solid lightgray;
+    box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
 }
 .box img{
   width:10%;
