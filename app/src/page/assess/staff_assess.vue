@@ -204,7 +204,7 @@ export default {
     /*flex: 0 20%;*/
     margin-right: 3rem;
   }
-  /deep/ .el-rate__icon{
+ .el-rate__icon{
     font-size: 2rem;
   }
   p.rule{

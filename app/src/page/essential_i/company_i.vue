@@ -72,8 +72,11 @@ export default {
 
 <style scoped>
 .contentWrapper{
-  background-color: rgb(240, 240, 242);
-  border: solid 4px #bbbbbb;
+  background-color: white;
+  margin: .5rem 3rem;
+  padding: 2rem;
+  border: 0.08rem solid lightgray;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
 }
 .topBox{
   margin: 5rem 33rem 3em 0rem;

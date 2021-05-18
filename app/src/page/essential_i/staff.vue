@@ -35,6 +35,11 @@
         :data="tableData.slice((currentPage-1)*pagesize, currentPage*pagesize)"
         stripe>
           <el-table-column
+          type="index"
+          label="序号"
+          style="text-align:center;">
+          </el-table-column>
+          <el-table-column
           prop="Ino"
           label="工号">
           </el-table-column>
@@ -43,7 +48,7 @@
           label="姓名">
         </el-table-column>
         <el-table-column
-          prop="department"
+          prop="depart"
           label="部门">
         </el-table-column>
         <el-table-column
@@ -191,10 +196,11 @@ export default {
       })
     },
     createList () {
-      this.$http.post('http://localhost:3000/login', '')
+      this.$http.post('http://localhost:3000/getStaffList', '')
         .then((res) => {
-          if (res.data.state === 'successs') {
+          if (res.data.state === 'success') {
             this.tableData = res.data.data
+            console.log('a')
           }
         }, err => {
           console.log(err)

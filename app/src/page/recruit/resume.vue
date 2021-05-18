@@ -156,15 +156,25 @@ export default {
     padding-right: .4rem;
   }
   .contentWrapper{
-    background-color: rgb(240, 240, 242);
-    /*border: solid 4px #bbbbbb;*/
-    /*height: 60rem;*/
+    margin: .5rem 3rem;
+    border: 0.08rem solid lightgray;
+    box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
     padding: 0 3rem 3rem;
+  }
+  button.returnLast{
+    margin-top: 1rem;
+    width: 5rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    background-color: rgb(128, 85, 207);
+    border-style: none;
+    color: white;
+    margin-left: 0.5rem;
   }
   .mainBox{
     background-color: white;
     margin: .5rem 3rem;
-    padding: 4rem;
+    padding: 2.5rem;
   }
   .preview{
     display: flex;
