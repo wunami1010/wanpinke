@@ -65,7 +65,8 @@ export default {
     return {
       menus: this.$store.state.menusModule.menus,
       fullscreen: false,
-      message: 2
+      message: 2,
+      username: ''
     }
   },
   components: {

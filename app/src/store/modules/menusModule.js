@@ -11,7 +11,7 @@ let menus = [
     submenus: [
       {id: 2, level: 2, type: 'link', name: '公司信息', url: '/essential_i/company_i'},
       {id: 3, level: 2, type: 'link', name: '员工列表', url: '/essential_i/staff'},
-      {id: 3, level: 2, type: 'link', name: '员工详情界面', url: '/essential_i/staff_i'}
+      {id: 24, level: 2, type: 'link', name: '员工详情界面', url: '/essential_i/staff_i'}
     ]
   },
   {

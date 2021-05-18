@@ -14,7 +14,7 @@
     <div class="s_contain">
       <div class="s_left">
         <div id="sexecharts" :style="{width: '20rem', height: '20rem'}"></div>
-        <div id="departmentecharts" :style="{width: '28rem', height: '28rem'}"></div>
+        <div id="departmentecharts" :style="{width: '28rem', height: '20rem'}"></div>
         <div id="ageecharts" :style="{width: '20rem', height: '20rem'}"></div>
       </div>
       <div class="s_right">
@@ -35,7 +35,7 @@
         :data="tableData.slice((currentPage-1)*pagesize, currentPage*pagesize)"
         stripe>
           <el-table-column
-          prop="jobNum"
+          prop="Ino"
           label="工号">
           </el-table-column>
         <el-table-column
@@ -88,28 +88,14 @@ export default {
         {name: '本月入职', num: 3},
         {name: '本月离职', num: 0}
       ],
-      tableData: [
-        {jobNum: 1, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 2, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 3, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 4, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 5, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 6, name: '张三', sex: '女', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 7, name: '张三', sex: '女', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 8, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 9, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 10, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 11, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 12, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 13, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 14, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 15, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'},
-        {jobNum: 16, name: '张三', sex: '男', department: '行政部', position: '员工', tel: '138xxxxxxxx'}
-      ]
+      tableData: []
     }
   },
   mounted () {
     this.drawLines()
+  },
+  created () {
+    this.createList()
   },
   methods: {
     handleCurrentChange (currentPage) {
@@ -203,6 +189,16 @@ export default {
           type: 'bar'
         }]
       })
+    },
+    createList () {
+      this.$http.post('http://localhost:3000/login', '')
+        .then((res) => {
+          if (res.data.state === 'successs') {
+            this.tableData = res.data.data
+          }
+        }, err => {
+          console.log(err)
+        })
     }
   }
 }
