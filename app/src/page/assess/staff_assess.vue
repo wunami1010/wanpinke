@@ -26,7 +26,14 @@
                   <p class="rule">*{{item.rule}}</p>
                   <hr>
                 </div>
-                <div class="showMark" style="display: flex"><span class="mark">得分：</span></div>
+                <div class="bottom">
+                  <div class="showMark">
+                    <span class="mark">得分：{{P1mark}}</span>
+                  </div>
+                  <div class="btnbox">
+                    <button class="submitMark" @click="submitP1">SUBMIT</button>
+                  </div>
+                </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="PART2" name="second">
@@ -54,7 +61,16 @@
                     <el-rate
                       v-model="Arrival.mark"
                       :colors="colors">
-                    </el-rate></div>
+                    </el-rate>
+                  </div>
+                </div>
+                <div class="bottom">
+                  <div class="showMark">
+                    <span class="mark">得分：{{P2mark}}</span>
+                  </div>
+                  <div class="btnbox">
+                    <button class="submitMark" @click="submitP1">SUBMIT</button>
+                  </div>
                 </div>
               </div>
             </el-tab-pane>
@@ -63,12 +79,12 @@
                 <div class="gap"><h3 class="gapTitle">工作错误</h3><hr class="modelSplit"></div>
                   <div class="matterMrak">
                     <div class="matter">
-                      <el-input type="textarea" v-model="Assess.mistake" placeholder="本部分为额外扣分，初始为5星，有一项重大工作失误减1星，后以1星两分计入总分"></el-input>
+                      <el-input type="textarea" :rows="5" v-model="Assess.mistake" placeholder="本部分为额外扣分，初始为5星，有一项重大工作失误减1星，后以1星两分计入总分"></el-input>
                     </div>
                     <div class="marking">
                       <span style="font-size: 1rem; margin-left: 2rem">评分：</span>
                       <el-rate
-                        v-model="Arrival.mismark"
+                        v-model="Assess.mismark"
                         :colors="colors">
                       </el-rate>
                     </div>
@@ -76,14 +92,22 @@
                 <div class="gap"><h3 class="gapTitle">学习进步</h3><hr class="modelSplit"></div>
                 <div class="matterMrak">
                   <div class="matter">
-                    <el-input type="textarea" v-model="Assess.study" placeholder="本部分为额外加分，初始为0星，有一项可以工作领域的加分成就加1星，后以1星两分计入总分"></el-input>
+                    <el-input type="textarea" :rows="5" v-model="Assess.study" placeholder="本部分为额外加分，初始为0星，有一项可以工作领域的加分成就加1星，后以1星两分计入总分"></el-input>
                   </div>
                   <div class="marking">
                     <span style="font-size: 1rem; margin-left: 2rem">评分：</span>
                     <el-rate
-                      v-model="Arrival.stumark"
+                      v-model="Assess.stumark"
                       :colors="colors">
                     </el-rate>
+                  </div>
+                </div>
+                <div class="bottom">
+                  <div class="showMark">
+                    <span class="mark">附加得分：{{P3mark}}</span>
+                  </div>
+                  <div class="btnbox">
+                    <button class="submitMark" @click="submitP1">SUBMIT</button>
                   </div>
                 </div>
               </div>
@@ -91,7 +115,12 @@
             <el-tab-pane label="PART4" name="fourth">
               <div class="remark">
                 <div class="gap"><h3 class="gapTitle">其他事项</h3><hr class="modelSplit"></div>
-                <el-input type="textarea" v-model="Assess.other" placeholder="本部分为对员工的特别备注事项，不计入考核总分，也可以选择不填"></el-input>
+                <el-input type="textarea" :rows="5" v-model="Assess.other" placeholder="本部分为对员工的特别备注事项，不计入考核总分，也可以选择不填"></el-input>
+              </div>
+              <div class="bottom" style="display:flex; justify-content: flex-end">
+                <div class="btnbox">
+                  <button class="submitMark" @click="submitFinal">FINISH</button>
+                </div>
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -119,6 +148,7 @@ export default {
         stumark: '',
         other: ''
       },
+      p1mark: '',
       Abi: [
         {name: '计划执行力', mark: '', rule: '独立按计划完成：5星；按计划完成：3~4星；延迟完成：1~2星'},
         {name: '工作主动性', mark: '', rule: '积极主动完成工作：5星；按要求完成工作：3~4星；经催促后完成工作：1~2星'},
@@ -143,12 +173,69 @@ export default {
         offset: 100,
         duration: 0
       })
+    },
+    submitP1 () {
+      this.$confirm('是否提交本部分分数？', '提示', {
+        confirmButtonText: '是',
+        cancelButtonText: '否',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '提交成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消提交'
+        })
+      })
+    },
+    submitFinal () {
+      this.$confirm('是否提交所有评价？', '提示', {
+        confirmButtonText: '是',
+        cancelButtonText: '否',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '提交成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消提交'
+        })
+      })
     }
   },
+
   mounted: function () {
     this.$nextTick(function () {
       this.showRule()
     })
+  },
+  computed: {
+    P1mark: function () {
+      var sum = 0
+      var p1mark = 0
+      // console.log(sum)
+      // console.log(this.Abi.length)
+      for (var i = 0; i < this.Abi.length; i++) {
+        sum = sum + this.Abi[i].mark * 20
+      }
+      p1mark = (sum / this.Abi.length).toFixed(2)
+      console.log(p1mark)
+      return p1mark
+    },
+    P2mark: function () {
+      var p2mark = (this.Arrival.mark * 20).toFixed(2)
+      return p2mark
+    },
+    P3mark: function () {
+      var p3mark = ((this.Assess.mismark + this.Assess.stumark) * 2).toFixed(2)
+      return p3mark
+    }
   }
 }
 </script>
@@ -189,15 +276,20 @@ export default {
     margin: 2rem 0rem 2rem 4rem;
     background-color: #987cb9;
   }
-  .mark{
+  .bottom{
+    margin: 2rem;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+  }
+  .btnbox{
+    align-self: flex-end;
   }
   .marking{
     display: flex;
     flex: 1;
     padding-top: 2rem;
     padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
   span.dimension{
     font-size: 1.5rem;
@@ -206,6 +298,18 @@ export default {
   }
  .el-rate__icon{
     font-size: 2rem;
+  }
+  button.submitMark{
+    width: 5rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    background-color: rgb(128, 85, 207);
+    border-style: none;
+    color: white;
+    margin-left: 2rem;
+  }
+  .showMark{
+    display: flex;
   }
   p.rule{
     flex: 1;
