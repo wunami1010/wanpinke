@@ -63,9 +63,13 @@
             <div class="s_contain">
                  <div class="s_left">
                      <div class="user-info">
-                         <img src="static/ai/default_scu.jpg" class="user-avator" >
-                         <h1>&nbsp;&nbsp;{{name}}</h1>
-                         <div>{{role}}</div>
+                         <img src="static/ai/default_scu.jpg" class="user-info-img">
+                         <div class="clock">
+                           <h2>张三{{name}}</h2>
+                           <p>&nbsp;</p>
+                           <p class="date">{{ date }}</p>
+                           <p class="time">{{ time }}</p>
+                          </div>
                      </div>
                      <div class="user-info-list">
                          <p>上次登录时间：<span>2021-04-19</span></p>
@@ -104,6 +108,9 @@ export default {
   data () {
     return {
       name: localStorage.getItem('ms_username'),
+      date: '',
+      time: '',
+      week: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
       todoList: [{
         title: '今天要修复100个bug',
         status: false
@@ -148,6 +155,13 @@ export default {
       }]
     }
   },
+  mounted: function () {
+    // 定时执行更新时间的方法
+    let _this = this
+    _this.$nextTick(function () {
+      setInterval(_this.updateTime, 1000)
+    })
+  },
   methods: {
     handleRead (index) {
       const item = this.unread.splice(index, 1)
@@ -161,6 +175,26 @@ export default {
     handleRestore (index) {
       const item = this.recycle.splice(index, 1)
       this.read = item.concat(this.read)
+    },
+    updateTime: function () {
+      let _this = this
+      let cd = new Date()
+      // this.date;
+      this.time = _this.zeroPadding(cd.getHours(), 2) + ':' +
+      _this.zeroPadding(cd.getMinutes(), 2) + ':' +
+      _this.zeroPadding(cd.getSeconds(), 2)
+      _this.date = _this.zeroPadding(cd.getFullYear(), 4) + '-' +
+      _this.zeroPadding(cd.getMonth() + 1, 2) + '-' +
+      _this.zeroPadding(cd.getDate(), 2) + ' ' +
+      _this.week[cd.getDay()]
+    },
+    // 更新时间的辅助方法
+    zeroPadding: function (num, digit) {
+      let zero = ''
+      for (let i = 0; i < digit; i++) {
+        zero += '0'
+      }
+      return (zero + num).slice(-digit)
     }
   },
   computed: {
@@ -175,11 +209,6 @@ export default {
 <style scoped>
 .box{
   padding: 10px;
-}
-.box img{
-  width:20%;
-  height: 20%;
-  border-radius:50%;
 }
 .el-row {
     margin-bottom: 20px;
@@ -198,8 +227,8 @@ export default {
 .s_left{
   flex: 2;
   padding: 10px;
+  width:25rem;
   height: 20rem;
-  display: flex;
   align-items: center;
   flex-direction: column;
   margin-right: 2.6rem;
@@ -230,15 +259,15 @@ export default {
   font-weight: bold;
 }
 .user-info {
-    display: flex;
-    align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 2px solid black;
+  display: flex;
+  padding-bottom: 20px;
+  border-bottom: 2px solid black;
 }
-.user-avator {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+.user-info-img{
+  float: left;
+  width: 8rem;
+  height:8rem;
+  border-radius: 50%;
 }
 .user-info-list {
     font-size: 14px;
@@ -269,5 +298,9 @@ export default {
     align-items: center;
     border: 0.08rem solid lightgray;
     box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
+}
+.clock{
+  width: 30rem;
+  float: right;
 }
 </style>
