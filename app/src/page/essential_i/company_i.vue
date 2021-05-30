@@ -1,42 +1,48 @@
 <template>
-  <div class="contentWrapper">
-    <div class="contentTop">
-      <div class="topBox">
-        <h1 id="topName">阿里巴巴集团</h1>
-        <button class="changeBtn" @click="changeInfo" v-if="!IfChange">修改信息</button>
-        <button class="changeBtn" @click="successChange" v-if="IfChange">保存修改</button>
-      </div>
-    </div>
-    <div class="contentMiddle">
-      <li class="manyBox" v-for="(item,index) in InfoLists" :key="index">
-        <div class="boxMiddle">
-          <div class="box_left">
-            <span class="InfoCata">{{item.Ltitle}}:</span><span class="InfoValue" v-if="!IfChange">{{item.Lvalue}}</span>
-            <el-input v-model="item.Lvalue" placeholder="请输入内容" v-if="IfChange"></el-input>
-          </div>
-          <div class="box_right">
-            <span class="InfoCata">{{item.Rtitle}}:</span><span class="InfoValue" v-if="!IfChange">{{item.Rvalue}}</span>
-            <el-input v-model="item.Rvalue" placeholder="请输入内容" v-if="IfChange"></el-input>
-          </div>
+ <div>
+   <el-breadcrumb separator=">">
+     <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
+     <el-breadcrumb-item>信息管理</el-breadcrumb-item>
+   </el-breadcrumb>
+    <div class="contentWrapper">
+      <div class="contentTop">
+        <div class="topBox">
+          <h1 id="topName">阿里巴巴集团</h1>
+          <button class="changeBtn" @click="changeInfo" v-if="!IfChange">修改信息</button>
+          <button class="changeBtn" @click="successChange" v-if="IfChange">保存修改</button>
         </div>
-      </li>
-    </div>
-    <div class="contentEnd">
-      <span class="companyPara">公司简介</span>
-      <div class="para">
-        <el-card class="box-card">
-          <p v-if="!IfChange">{{message}}</p>
-          <el-input
-            type="textarea"
-            :autosize="{ minRows: 5, maxRows: 10}"
-            placeholder="请输入内容"
-            v-model="message"
-            v-if="IfChange">
-          </el-input>
-        </el-card>
+      </div>
+      <div class="contentMiddle">
+        <li class="manyBox" v-for="(item,index) in InfoLists" :key="index">
+          <div class="boxMiddle">
+            <div class="box_left">
+              <span class="InfoCata">{{item.Ltitle}}:</span><span class="InfoValue" v-if="!IfChange">{{item.Lvalue}}</span>
+              <el-input v-model="item.Lvalue" placeholder="请输入内容" v-if="IfChange"></el-input>
+            </div>
+            <div class="box_right">
+              <span class="InfoCata">{{item.Rtitle}}:</span><span class="InfoValue" v-if="!IfChange">{{item.Rvalue}}</span>
+              <el-input v-model="item.Rvalue" placeholder="请输入内容" v-if="IfChange"></el-input>
+            </div>
+          </div>
+        </li>
+      </div>
+      <div class="contentEnd">
+        <span class="companyPara">公司简介</span>
+        <div class="para">
+          <el-card class="box-card">
+            <p v-if="!IfChange">{{message}}</p>
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 5, maxRows: 10}"
+              placeholder="请输入内容"
+              v-model="message"
+              v-if="IfChange">
+            </el-input>
+          </el-card>
+        </div>
       </div>
     </div>
-  </div>
+ </div>
 </template>
 
 <script>

@@ -1,129 +1,136 @@
 <template>
-  <div class="contentWrapper">
-    <div class="mainBox">
-      <div class="header">
-        <h3 class="title">员工绩效考核评定表</h3>
-        <div class="staffMessage">
-          <span class="tag">工号：{{Assess.id}}</span>
-          <span class="tag">姓名：{{Assess.name}}</span>
-          <span class="tag">评价时间：{{Assess.time}}</span>
-          <span class="tag">所属部门：{{Assess.department}}</span>
-          <span class="tag" style="color: #6d4fc9; font-size: 1rem" >最终分数：{{Assess.mark}}</span>
-        </div>
-        <div>
-          <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="PART1" name="first">
-              <div class="ability">
-                <div class="gap"><h3 class="gapTitle">工作态度及综合素质</h3><hr class="modelSplit"></div>
-                <div class="mark" v-for="item in Abi" :key="item.index">
-                  <div class="marking">
-                    <span class="dimension">{{item.name}}</span>
-                    <el-rate
-                      v-model="item.mark"
-                      :colors="colors">
-                    </el-rate>
-                  </div>
-                  <p class="rule">*{{item.rule}}</p>
-                  <hr>
-                </div>
-                <div class="bottom">
-                  <div class="showMark">
-                    <span class="mark">得分：{{P1mark}}</span>
-                  </div>
-                  <div class="btnbox">
-                    <button class="submitMark" @click="submitP1">SUBMIT</button>
-                  </div>
-                </div>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="PART2" name="second">
-              <div class="arrival">
-                <div class="gap"><h3 class="gapTitle">考勤得分</h3><hr class="modelSplit"></div>
-                <div class="arrTable">
-                  <table class="arrtable">
-                    <caption class="tTitle" style="padding-bottom: 1rem; font-weight: bolder">本月出勤情况</caption>
-                    <tr class="tRow">
-                      <th class="tt">理应到岗天数</th>
-                      <th class="tt">实际到岗天数</th>
-                      <th class="tt">出勤率</th>
-                      <th class="tt">其他特殊情况</th>
-                    </tr>
-                    <tr class="tRow">
-                      <td>{{Arrival.total}}</td>
-                      <td>{{Arrival.actual}}</td>
-                      <td>{{Arrival.rate}}</td>
-                      <td>{{Arrival.extra}}</td>
-                    </tr>
-                  </table>
-                  <p class="rule" style="margin-left: 2rem">{{Arrival.rule}}</p>
-                  <div class="marking">
-                    <span style="font-size: 1rem; margin-left: 2rem">评分：</span>
-                    <el-rate
-                      v-model="Arrival.mark"
-                      :colors="colors">
-                    </el-rate>
-                  </div>
-                </div>
-                <div class="bottom">
-                  <div class="showMark">
-                    <span class="mark">得分：{{P2mark}}</span>
-                  </div>
-                  <div class="btnbox">
-                    <button class="submitMark" @click="submitP1">SUBMIT</button>
-                  </div>
-                </div>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="PART3" name="third">
-              <div class="remark">
-                <div class="gap"><h3 class="gapTitle">工作错误</h3><hr class="modelSplit"></div>
-                  <div class="matterMrak">
-                    <div class="matter">
-                      <el-input type="textarea" :rows="5" v-model="Assess.mistake" placeholder="本部分为额外扣分，初始为5星，有一项重大工作失误减1星，后以1星两分计入总分"></el-input>
+  <div>
+    <el-breadcrumb separator=">">
+      <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{path: '/essential_i/staff'}">评分系统</el-breadcrumb-item>
+      <el-breadcrumb-item>评价页面</el-breadcrumb-item>
+    </el-breadcrumb>
+    <div class="contentWrapper">
+      <div class="mainBox">
+        <div class="header">
+          <h3 class="title">员工绩效考核评定表</h3>
+          <div class="staffMessage">
+            <span class="tag">工号：{{Assess.id}}</span>
+            <span class="tag">姓名：{{Assess.name}}</span>
+            <span class="tag">评价时间：{{Assess.time}}</span>
+            <span class="tag">所属部门：{{Assess.department}}</span>
+            <span class="tag" style="color: #6d4fc9; font-size: 1rem" >最终分数：{{Assess.mark}}</span>
+          </div>
+          <div>
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+              <el-tab-pane label="PART1" name="first">
+                <div class="ability">
+                  <div class="gap"><h3 class="gapTitle">工作态度及综合素质</h3><hr class="modelSplit"></div>
+                  <div class="mark" v-for="item in Abi" :key="item.index">
+                    <div class="marking">
+                      <span class="dimension">{{item.name}}</span>
+                      <el-rate
+                        v-model="item.mark"
+                        :colors="colors">
+                      </el-rate>
                     </div>
+                    <p class="rule">*{{item.rule}}</p>
+                    <hr>
+                  </div>
+                  <div class="bottom">
+                    <div class="showMark">
+                      <span class="mark">得分：{{P1mark}}</span>
+                    </div>
+                    <div class="btnbox">
+                      <button class="submitMark" @click="submitP1">SUBMIT</button>
+                    </div>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="PART2" name="second">
+                <div class="arrival">
+                  <div class="gap"><h3 class="gapTitle">考勤得分</h3><hr class="modelSplit"></div>
+                  <div class="arrTable">
+                    <table class="arrtable">
+                      <caption class="tTitle" style="padding-bottom: 1rem; font-weight: bolder">本月出勤情况</caption>
+                      <tr class="tRow">
+                        <th class="tt">理应到岗天数</th>
+                        <th class="tt">实际到岗天数</th>
+                        <th class="tt">出勤率</th>
+                        <th class="tt">其他特殊情况</th>
+                      </tr>
+                      <tr class="tRow">
+                        <td>{{Arrival.total}}</td>
+                        <td>{{Arrival.actual}}</td>
+                        <td>{{Arrival.rate}}</td>
+                        <td>{{Arrival.extra}}</td>
+                      </tr>
+                    </table>
+                    <p class="rule" style="margin-left: 2rem">{{Arrival.rule}}</p>
                     <div class="marking">
                       <span style="font-size: 1rem; margin-left: 2rem">评分：</span>
                       <el-rate
-                        v-model="Assess.mismark"
+                        v-model="Arrival.mark"
                         :colors="colors">
                       </el-rate>
                     </div>
                   </div>
-                <div class="gap"><h3 class="gapTitle">学习进步</h3><hr class="modelSplit"></div>
-                <div class="matterMrak">
-                  <div class="matter">
-                    <el-input type="textarea" :rows="5" v-model="Assess.study" placeholder="本部分为额外加分，初始为0星，有一项可以工作领域的加分成就加1星，后以1星两分计入总分"></el-input>
-                  </div>
-                  <div class="marking">
-                    <span style="font-size: 1rem; margin-left: 2rem">评分：</span>
-                    <el-rate
-                      v-model="Assess.stumark"
-                      :colors="colors">
-                    </el-rate>
+                  <div class="bottom">
+                    <div class="showMark">
+                      <span class="mark">得分：{{P2mark}}</span>
+                    </div>
+                    <div class="btnbox">
+                      <button class="submitMark" @click="submitP1">SUBMIT</button>
+                    </div>
                   </div>
                 </div>
-                <div class="bottom">
-                  <div class="showMark">
-                    <span class="mark">附加得分：{{P3mark}}</span>
+              </el-tab-pane>
+              <el-tab-pane label="PART3" name="third">
+                <div class="remark">
+                  <div class="gap"><h3 class="gapTitle">工作错误</h3><hr class="modelSplit"></div>
+                    <div class="matterMrak">
+                      <div class="matter">
+                        <el-input type="textarea" :rows="5" v-model="Assess.mistake" placeholder="本部分为额外扣分，初始为5星，有一项重大工作失误减1星，后以1星两分计入总分"></el-input>
+                      </div>
+                      <div class="marking">
+                        <span style="font-size: 1rem; margin-left: 2rem">评分：</span>
+                        <el-rate
+                          v-model="Assess.mismark"
+                          :colors="colors">
+                        </el-rate>
+                      </div>
+                    </div>
+                  <div class="gap"><h3 class="gapTitle">学习进步</h3><hr class="modelSplit"></div>
+                  <div class="matterMrak">
+                    <div class="matter">
+                      <el-input type="textarea" :rows="5" v-model="Assess.study" placeholder="本部分为额外加分，初始为0星，有一项可以工作领域的加分成就加1星，后以1星两分计入总分"></el-input>
+                    </div>
+                    <div class="marking">
+                      <span style="font-size: 1rem; margin-left: 2rem">评分：</span>
+                      <el-rate
+                        v-model="Assess.stumark"
+                        :colors="colors">
+                      </el-rate>
+                    </div>
                   </div>
+                  <div class="bottom">
+                    <div class="showMark">
+                      <span class="mark">附加得分：{{P3mark}}</span>
+                    </div>
+                    <div class="btnbox">
+                      <button class="submitMark" @click="submitP1">SUBMIT</button>
+                    </div>
+                  </div>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="PART4" name="fourth">
+                <div class="remark">
+                  <div class="gap"><h3 class="gapTitle">其他事项</h3><hr class="modelSplit"></div>
+                  <el-input type="textarea" :rows="5" v-model="Assess.other" placeholder="本部分为对员工的特别备注事项，不计入考核总分，也可以选择不填"></el-input>
+                </div>
+                <div class="bottom" style="display:flex; justify-content: flex-end">
                   <div class="btnbox">
-                    <button class="submitMark" @click="submitP1">SUBMIT</button>
+                    <button class="submitMark" @click="submitFinal">FINISH</button>
                   </div>
                 </div>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="PART4" name="fourth">
-              <div class="remark">
-                <div class="gap"><h3 class="gapTitle">其他事项</h3><hr class="modelSplit"></div>
-                <el-input type="textarea" :rows="5" v-model="Assess.other" placeholder="本部分为对员工的特别备注事项，不计入考核总分，也可以选择不填"></el-input>
-              </div>
-              <div class="bottom" style="display:flex; justify-content: flex-end">
-                <div class="btnbox">
-                  <button class="submitMark" @click="submitFinal">FINISH</button>
-                </div>
-              </div>
-            </el-tab-pane>
-          </el-tabs>
+              </el-tab-pane>
+            </el-tabs>
+          </div>
         </div>
       </div>
     </div>
