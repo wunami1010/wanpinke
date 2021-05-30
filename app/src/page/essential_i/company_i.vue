@@ -102,7 +102,7 @@ h1#topName{
 }
 .InfoCata{
   font-size: 1rem;
-  color: #2E7D32;
+  color: rgb(128, 85, 207);
   display: inline-block;
 }
 .InfoValue{
