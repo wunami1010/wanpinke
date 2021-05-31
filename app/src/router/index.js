@@ -40,7 +40,7 @@ export default new Router({
           component: resolve => require(['../page/essential_i/company_i.vue'], resolve)
         },
         {
-          path: '/essential_i/staff_i',
+          path: '/essential_i/staff_i/:id',
           name: 'staffI',
           component: resolve => require(['../page/essential_i/staff_i.vue'], resolve)
         },

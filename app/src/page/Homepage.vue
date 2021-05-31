@@ -1,80 +1,66 @@
 <template>
   <div class="hcontent">
-    <div class="picturehome">
-      <img src="../../static/ai/首页背景.jpg">
-    </div>
     <el-breadcrumb separator=">">
       <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
     </el-breadcrumb>
-    <div class="hcontent1" v-if="!loginornot">
-      <div class="picturehome">
-        <img src="../../static/ai/首页背景.jpg">
+    <div class="hcontent2">
+      <div class="hometop">
+        <p class="hometopheader">业务导航</p>
+        <div class="homenav">
+          <div class="navitem">
+            <img src="../../static/ai/管理.png" :style="{width: '4rem', height: '4rem'}">
+            <p>信息管理</p>
+          </div>
+          <div class="border"></div>
+          <div class="navitem">
+            <img src="../../static/ai/对话.png" :style="{width: '4rem', height: '4rem'}">
+            <p>评分系统</p>
+          </div>
+          <div class="border"></div>
+          <div class="navitem">
+            <img src="../../static/ai/运营.png" :style="{width: '4rem', height: '4rem'}">
+            <p>人才招聘</p>
+          </div>
+          <div class="border"></div>
+          <div class="navitem">
+            <img src="../../static/ai/公告.png" :style="{width: '4rem', height: '4rem'}">
+            <p>消息通知</p>
+          </div>
+        </div>
       </div>
-      <div class="comBtn">
-        <div class="joinorgan">加入公司</div>
-        <div class="creatorgan">创建公司</div>
-      </div>
-    </div>
-    <div v-if="loginornot">
-      <div class="hcontent2">
-        <div class="hometop">
-          <p class="hometopheader">业务导航</p>
-          <div class="homenav">
-            <div class="navitem">
-              <img src="../../static/ai/管理.png" :style="{width: '4rem', height: '4rem'}">
-              <p>信息管理</p>
+      <div class="homecontain">
+        <div class="homeleft">
+          <div class="calendar">
+            <div><div id="prev">&lt;</div>{{c_month}}月<div id="next">&gt;</div></div>
+            <div>{{c_year}}</div>
+            <div class="weekdays">
+              <ul>
+                <li>日</li>
+                <li>一</li>
+                <li>二</li>
+                <li>三</li>
+                <li>四</li>
+                <li>五</li>
+                <li>六</li>
+              </ul>
             </div>
-            <div class="border"></div>
-            <div class="navitem">
-              <img src="../../static/ai/对话.png" :style="{width: '4rem', height: '4rem'}">
-              <p>评分系统</p>
-            </div>
-            <div class="border"></div>
-            <div class="navitem">
-              <img src="../../static/ai/运营.png" :style="{width: '4rem', height: '4rem'}">
-              <p>人才招聘</p>
-            </div>
-            <div class="border"></div>
-            <div class="navitem">
-              <img src="../../static/ai/公告.png" :style="{width: '4rem', height: '4rem'}">
-              <p>消息通知</p>
+            <div>
+              <table id="days">
+                <li
+                v-for="item in days"
+                :key="item"></li>
+              </table>
             </div>
           </div>
         </div>
-        <div class="homecontain">
-          <div class="homeleft">
-            <div class="calendar">
-              <div><div id="prev">&lt;</div>{{c_month}}月<div id="next">&gt;</div></div>
-              <div>{{c_year}}</div>
-              <div class="weekdays">
-                <ul>
-                  <li>日</li>
-                  <li>一</li>
-                  <li>二</li>
-                  <li>三</li>
-                  <li>四</li>
-                  <li>五</li>
-                  <li>六</li>
-                </ul>
-              </div>
-              <div>
-                <ul id="days">
-                  <li
-                  v-for="item in days"
-                  :key="item"></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="homeright">
-            <p class="hometopheader">最新消息</p>
-            <ul>
-              <li>5-1 新的一期简历投递即将开启</li>
-              <li>5-1 新的一期简历投递即将开启</li>
-              <li>5-1 新的一期简历投递即将开启</li>
-              <li>5-1 新的一期简历投递即将开启</li>
-            </ul>
-          </div>
+        <div class="homeright">
+          <p class="hometopheader">最新消息</p>
+          <ul>
+            <li>5-1 新的一期简历投递即将开启</li>
+            <li>5-1 新的一期简历投递即将开启</li>
+            <li>5-1 新的一期简历投递即将开启</li>
+            <li>5-1 新的一期简历投递即将开启</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -85,7 +71,6 @@
 export default {
   data () {
     return {
-      loginornot: true,
       c_year: '',
       c_month: '',
       c_day: '',
@@ -104,28 +89,47 @@ export default {
       this.c_year = year
       this.c_month = month
       this.c_day = day
-      const montholympic = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-      const monthnormal = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-      var days = document.getElementById('days')
-      var firstday = date.getDay()
-      var totalday = (year % 4 === 0) ? montholympic[month] : monthnormal[month]
-      var str = ''
-      var myclass
-      for (let i = 1; i < firstday; i++) {
-        str += '<li></li>'
-      }
-      for (let i = 1; i <= totalday; i++) {
-        if ((i < day && year === date.getFullYear() && month === date.getMonth()) || year < date.getFullYear() || (year === date.getFullYear() && month < date.getMonth())) {
-          myclass = " class='lightgray'"
-        } else if (i === day && year === date.getFullYear() && month === date.getMonth()) {
-          myclass = " class='gray'"
-        } else {
-          myclass = " class='darkgray'"
+      // const montholympic = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+      // const monthnormal = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+      var table = document.getElementById('days')
+      // var totalday = (year % 4 === 0) ? montholympic[month] : monthnormal[month]
+      let d = new Date(year, month - 1, 0)
+      let dd = new Date(year, month, 1)
+      for (let i = 0; i < 6; i++) {
+        let tr = document.createElement('tr')
+        for (let j = 0; j < 7; j++) {
+          let td = document.createElement('td')
+          let days = i * 7 + j + 1
+          let getDate = dd.getDay() + 1
+          if (days >= getDate && days <= d.getDate() + getDate - 1) {
+            var t = days - getDate + 1
+            td.innerText = t
+            td.style = 'color:black;'
+            if (t === new Date().getDate() && date.getMonth() === new Date().getMonth()) {
+              td.style = 'color: white; background-color: #1d2241; border-radius:5px '
+            }
+          }
+          tr.appendChild(td)
         }
-        str += '<li' + myclass + '>' + i + '</li>'
+        table.appendChild(tr)
       }
-      console.log(str)
-      days.innerHTML = str
+      // var str = ''
+      // var myclass
+      // for (let i = 1; i < firstday; i++) {
+      //   str += '<li></li>'
+      // }
+      // for (let i = 1; i <= totalday; i++) {
+      //   if ((i < day && year === date.getFullYear() && month === date.getMonth()) || year < date.getFullYear() || (year === date.getFullYear() && month < date.getMonth())) {
+      //     myclass = " class='lightgray'"
+      //   } else if (i === day && year === date.getFullYear() && month === date.getMonth()) {
+      //     myclass = " class='gray'"
+      //   } else {
+      //     myclass = " class='darkgray'"
+      //   }
+      //   str += '<li' + myclass + '>' + i + '</li>'
+      // }
+      // console.log(str)
+      // days.innerHTML = str
     }
   }
 }
@@ -137,8 +141,6 @@ export default {
 }
 .hcontent{
   padding: 0;
-  border: 0.08rem solid lightgray;
-  box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
 }
 .comBtn{
   display: flex;
@@ -231,6 +233,9 @@ export default {
 .weekdays{
   font-size: 1.2rem;
   font-weight: bold;
+}
+#days li{
+  width: 30%;
 }
 .homeright li{
   list-style: none;

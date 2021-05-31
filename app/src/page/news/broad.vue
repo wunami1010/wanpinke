@@ -148,7 +148,20 @@ export default {
       }]
     }
   },
+  created () {
+    this.showMessage()
+  },
   methods: {
+    showMessage () {
+      this.$http.post('http://localhost:3000/getMessage', '')
+        .then((res) => {
+          if (res.data.state === 'success') {
+            console.log('success')
+          }
+        }, err => {
+          console.log(err)
+        })
+    },
     handleRead (index) {
       const item = this.unread.splice(index, 1)
       console.log(item)

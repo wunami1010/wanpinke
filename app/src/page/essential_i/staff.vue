@@ -32,16 +32,18 @@
           </div>
         </div>
         <el-table
-        :data="tableData.slice((currentPage-1)*pagesize, currentPage*pagesize)"
-        stripe>
+        @row-click="getRow" :data="tableData.slice((currentPage-1)*pagesize, currentPage*pagesize)"
+        stripe
+        >
           <el-table-column
           type="index"
           label="序号"
           style="text-align:center;">
           </el-table-column>
-          <el-table-column
+          <el-table-column class="SId"
           prop="Ino"
-          label="工号">
+          label="工号"
+          >
           </el-table-column>
         <el-table-column
           prop="name"
@@ -60,8 +62,11 @@
           label="联系方式">
         </el-table-column>
         <el-table-column
-          label="其他信息">
-          ...
+          label="其他信息"
+          >
+          <router-link class="detailed" :to="'/essential_i/staff_i/'+row.Ino">
+            ...
+          </router-link>
         </el-table-column>
         </el-table>
         <el-pagination
@@ -93,7 +98,8 @@ export default {
         {name: '本月入职', num: 3},
         {name: '本月离职', num: 0}
       ],
-      tableData: []
+      tableData: [],
+      row: ''
     }
   },
   mounted () {
@@ -196,15 +202,18 @@ export default {
       })
     },
     createList () {
-      this.$http.post('http://localhost:3000/getStaffList', '')
+      this.$http.post('http://localhost:3000/getStaffByIno', '')
         .then((res) => {
           if (res.data.state === 'success') {
             this.tableData = res.data.data
-            console.log('a')
           }
         }, err => {
           console.log(err)
         })
+    },
+    getRow (row) {
+      this.row = row
+      console.log(row)
     }
   }
 }
@@ -232,6 +241,9 @@ export default {
 }
 .sname{
   color: gray;
+}
+.detailed{
+  direction: none;
 }
 .s_contain{
   margin-top: 3rem;

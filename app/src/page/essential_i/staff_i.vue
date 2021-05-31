@@ -65,7 +65,32 @@ export default {
       console.log('保存信息')
       console.log(this.message)
       this.IfChange = false
+    },
+    getStaffDetail () {
+      let Ino = this.$route.params.id
+      this.$http.get('http://localhost:3000/getStaffByIno/' + Ino, '')
+        .then((res) => {
+          if (res.data.state === 'success') {
+            let detaildata = res.data.data
+            console.log(res.data.data)
+            this.InfoLists[0].Rvalue = detaildata.Ino
+            this.InfoLists[0].Lvalue = detaildata.name
+            this.InfoLists[1].Lvalue = detaildata.gender
+            this.InfoLists[1].Rvalue = detaildata.birth
+            this.InfoLists[2].Lvalue = detaildata.entrytime
+            this.InfoLists[2].Rvalue = detaildata.address
+            this.InfoLists[3].Lvalue = detaildata.tel
+            this.InfoLists[3].Rvalue = detaildata.email
+            this.InfoLists[4].Lvalue = detaildata.depart
+            this.InfoLists[4].Rvalue = detaildata.position
+          }
+        }, err => {
+          console.log(err)
+        })
     }
+  },
+  created () {
+    this.getStaffDetail()
   }
 }
 </script>

@@ -239,12 +239,6 @@ export default {
     justify-content: space-between;
   }
   .placeName{
-    /*flex: 1;*/
-  }
-  .Time{
-    /*flex: 1;*/
-  }
-  .placeName{
     color: #2c3e50;
     font-size: 1rem;
     font-weight: bolder;
