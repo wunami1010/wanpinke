@@ -1,78 +1,85 @@
 <template>
-  <div class="contentWrapper">
-    <!--    <div class="content">-->
-<!--    <div class="AllShow sizeStyle">-->
-<!--      <div class="ShowInfo" v-show="!IsShow">-->
-<!--        <span class="infoName tag">XXX</span>-->
-<!--        <span class="tag">男</span><i class="tagSplit"></i>-->
-<!--        <span class="tag">杭州电子科技大学</span><i class="tagSplit"></i>-->
-<!--        <span class="tag">杭州</span><i class="tagSplit"></i>-->
-<!--        <span class="tag">23岁</span>-->
-<!--      </div>-->
-<!--      <img class="outImg" @click="IfShow" v-show="IsShow" :src="outUrl">-->
-<!--    </div>-->
-    <el-button @click="returnJobM" class="returnLast">返回</el-button>
-    <div class="mainBox" v-for="item in resumeInfo" :key="item.id">
-      <div class="preview">
-        <div class="infoLabel">
-          <p class="infoName">{{item.name}}</p>
-          <span class="tag">{{item.gender}}</span><i class="tagSplit"></i>
-          <span class="tag">{{item.graduated}}</span><i class="tagSplit"></i>
-          <span class="tag">{{item.place}}</span><i class="tagSplit"></i>
-          <span class="tag">{{item.year}}</span>
+  <div>
+    <el-breadcrumb separator=">">
+      <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{path: '/recruit/job_m'}">人才招聘</el-breadcrumb-item>
+      <el-breadcrumb-item>简历详情</el-breadcrumb-item>
+    </el-breadcrumb>
+    <div class="contentWrapper">
+      <!--    <div class="content">-->
+  <!--    <div class="AllShow sizeStyle">-->
+  <!--      <div class="ShowInfo" v-show="!IsShow">-->
+  <!--        <span class="infoName tag">XXX</span>-->
+  <!--        <span class="tag">男</span><i class="tagSplit"></i>-->
+  <!--        <span class="tag">杭州电子科技大学</span><i class="tagSplit"></i>-->
+  <!--        <span class="tag">杭州</span><i class="tagSplit"></i>-->
+  <!--        <span class="tag">23岁</span>-->
+  <!--      </div>-->
+  <!--      <img class="outImg" @click="IfShow" v-show="IsShow" :src="outUrl">-->
+  <!--    </div>-->
+      <el-button @click="returnJobM" class="returnLast">返回</el-button>
+      <div class="mainBox" v-for="item in resumeInfo" :key="item.id">
+        <div class="preview">
+          <div class="infoLabel">
+            <p class="infoName">{{item.name}}</p>
+            <span class="tag">{{item.gender}}</span><i class="tagSplit"></i>
+            <span class="tag">{{item.graduated}}</span><i class="tagSplit"></i>
+            <span class="tag">{{item.place}}</span><i class="tagSplit"></i>
+            <span class="tag">{{item.year}}</span>
+          </div>
+          <div class="HeadBox">
+            <img class="HeadImg">
+          </div>
         </div>
-        <div class="HeadBox">
-          <img class="HeadImg">
+        <div class="gap"><h3 class="gapTitle">求职意向</h3><hr class="modelSplit"></div>
+        <div class="expect">
+          <span class="tag">求职岗位：{{item.aimJob}}</span><i class="tagSplit"></i>
+          <span class="tag">意向城市：{{item.aimPlace}}</span><i class="tagSplit"></i>
+          <span class="tag">期待薪资：{{item.aimMoney}}</span><i class="tagSplit"></i>
+          <span class="tag">求职意向：{{item.aimWilling}}</span>
         </div>
-      </div>
-      <div class="gap"><h3 class="gapTitle">求职意向</h3><hr class="modelSplit"></div>
-      <div class="expect">
-        <span class="tag">求职岗位：{{item.aimJob}}</span><i class="tagSplit"></i>
-        <span class="tag">意向城市：{{item.aimPlace}}</span><i class="tagSplit"></i>
-        <span class="tag">期待薪资：{{item.aimMoney}}</span><i class="tagSplit"></i>
-        <span class="tag">求职意向：{{item.aimWilling}}</span>
-      </div>
-      <div class="gap"><h3 class="gapTitle">教育经历</h3><hr class="modelSplit"></div>
-      <div class="education" v-for="item in EduExp" :key="item.index">
-        <div class="midName">
-          <div class="left"><span class="placeName">{{item.school}}</span><span>{{item.education}}</span><span>{{item.major}}</span></div>
-          <div class="right"><span class="Time">{{item.time}}</span></div>
+        <div class="gap"><h3 class="gapTitle">教育经历</h3><hr class="modelSplit"></div>
+        <div class="education" v-for="item in EduExp" :key="item.index">
+          <div class="midName">
+            <div class="left"><span class="placeName">{{item.school}}</span><span>{{item.education}}</span><span>{{item.major}}</span></div>
+            <div class="right"><span class="Time">{{item.time}}</span></div>
+          </div>
+          <div class="placeMark">
+            <span>{{item.experience}}</span>
+          </div>
         </div>
-        <div class="placeMark">
-          <span>{{item.experience}}</span>
+        <div class="gap"><h3 class="gapTitle">工作经历</h3><hr class="modelSplit"></div>
+        <div class="work" v-for="item in WorkExp" :key="item.index">
+          <div class="midName">
+            <div class="left"><span class="placeName">{{item.company}}</span><span>{{item.job}}</span></div>
+            <div class="right"><span class="Time">{{item.time}}</span></div>
+          </div>
+          <div class="placeMark">
+            <span>{{item.experience}}</span>
+            <span>{{item.experience}}</span>
+            <span>{{item.experience}}</span>
+          </div>
         </div>
-      </div>
-      <div class="gap"><h3 class="gapTitle">工作经历</h3><hr class="modelSplit"></div>
-      <div class="work" v-for="item in WorkExp" :key="item.index">
-        <div class="midName">
-          <div class="left"><span class="placeName">{{item.company}}</span><span>{{item.job}}</span></div>
-          <div class="right"><span class="Time">{{item.time}}</span></div>
+        <div class="gap"><h3 class="gapTitle">项目经历</h3><hr class="modelSplit"></div>
+        <div class="work" v-for="item in ProExp" v-bind:key="item.index">
+          <div class="midName">
+            <div class="left"><span class="placeName">{{item.role}}</span></div>
+            <div class="right"><span class="Time">{{item.time}}</span></div>
+          </div>
+          <div class="placeMark">
+            <span>{{item.intro}}</span>
+          </div>
         </div>
-        <div class="placeMark">
-          <span>{{item.experience}}</span>
-          <span>{{item.experience}}</span>
-          <span>{{item.experience}}</span>
-        </div>
-      </div>
-      <div class="gap"><h3 class="gapTitle">项目经历</h3><hr class="modelSplit"></div>
-      <div class="work" v-for="item in ProExp" v-bind:key="item.index">
-        <div class="midName">
-          <div class="left"><span class="placeName">{{item.role}}</span></div>
-          <div class="right"><span class="Time">{{item.time}}</span></div>
-        </div>
-        <div class="placeMark">
-          <span>{{item.intro}}</span>
-        </div>
-      </div>
-      <div class="gap"><h3 class="gapTitle">个人荣誉</h3><hr class="modelSplit"></div>
-      <div class="honor">
-        <div class="placeMark">
-          <span>{{Honor}}</span>
+        <div class="gap"><h3 class="gapTitle">个人荣誉</h3><hr class="modelSplit"></div>
+        <div class="honor">
+          <div class="placeMark">
+            <span>{{Honor}}</span>
+          </div>
         </div>
       </div>
     </div>
+    <!--  </div>-->
   </div>
-  <!--  </div>-->
 </template>
 
 <script>
