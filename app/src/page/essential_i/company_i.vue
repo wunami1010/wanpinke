@@ -1,15 +1,16 @@
 <template>
  <div>
-   <el-breadcrumb separator=">">
-     <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
-     <el-breadcrumb-item>信息管理</el-breadcrumb-item>
-   </el-breadcrumb>
+  <el-breadcrumb separator=">">
+  <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
+  <el-breadcrumb-item>公司详情界面</el-breadcrumb-item>
+  </el-breadcrumb>
+  <h1>&nbsp;</h1>
     <div class="contentWrapper">
       <div class="contentTop">
         <div class="topBox">
           <h1 id="topName">阿里巴巴集团</h1>
-          <button class="changeBtn" @click="changeInfo" v-if="!IfChange">修改信息</button>
-          <button class="changeBtn" @click="successChange" v-if="IfChange">保存修改</button>
+          <button class="changeBtn" @click="changeInfo" v-if="!IfChange"> <i class="el-icon-edit"></i>修改信息</button>
+          <button class="changeBtn" @click="successChange" v-if="IfChange"> <i class="el-icon-success"></i>保存修改</button>
         </div>
       </div>
       <div class="contentMiddle">
@@ -27,7 +28,7 @@
         </li>
       </div>
       <div class="contentEnd">
-        <span class="companyPara">公司简介</span>
+        <div class="companyPara">公司简介</div>
         <div class="para">
           <el-card class="box-card">
             <p v-if="!IfChange">{{message}}</p>
@@ -52,14 +53,14 @@ export default {
       IfChange: false,
       input: '',
       InfoLists: [
-        {id: 1, Ltitle: '名称', Lvalue: 'aaaaa', Rtitle: '编号', Rvalue: '5'},
-        {id: 2, Ltitle: '类型', Lvalue: 'suibian', Rtitle: '成立时间', Rvalue: 'buzhidao'},
-        {id: 3, Ltitle: '官网', Lvalue: 'wwwwwww', Rtitle: '地址', Rvalue: 'xxxxxx'},
-        {id: 4, Ltitle: '电话', Lvalue: '1111', Rtitle: '邮箱', Rvalue: '2222'},
-        {id: 5, Ltitle: '负责人账号', Lvalue: 'zzzzz', Rtitle: '负责人联系方式', Rvalue: 'ttttt'}],
-      message: '这里是公司简介这里是公司简介这里是公司简介\n这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介' +
-        '这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介' +
-        '这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介这里是公司简介'
+        {id: 1, Ltitle: '名称', Lvalue: '阿里巴巴集团控股有限公司', Rtitle: '编号', Rvalue: '5'},
+        {id: 2, Ltitle: '类型', Lvalue: '互联网公司', Rtitle: '成立时间', Rvalue: '1999年'},
+        {id: 3, Ltitle: '官网', Lvalue: 'https://www.alibabagroup.com/cn/global/home', Rtitle: '地址', Rvalue: '中国杭州市余杭区文一西路969号。'},
+        {id: 4, Ltitle: '电话', Lvalue: '(+86) 571-8502-2088', Rtitle: '邮箱', Rvalue: 'gsll@service.alibaba.com'},
+        {id: 5, Ltitle: '负责人账号', Lvalue: 'albb@13', Rtitle: '负责人联系方式', Rvalue: '195412341023'}],
+      message: '        阿里巴巴集团控股有限公司（简称：阿里巴巴集团）是于1999年在浙江省杭州市创立的公司。 ' +
+               '阿里巴巴集团经营多项业务，另外也从关联公司的业务和服务中取得经营商业生态系统上的支援。' +
+               '业务和关联公司的业务包括：淘宝网、天猫、聚划算、全球速卖通、阿里巴巴国际交易市场、1688、阿里妈妈、阿里云、蚂蚁金服、菜鸟网络等。'
     }
   },
   methods: {
@@ -110,7 +111,6 @@ h1#topName{
   padding-left: .8rem;
 }
 .boxMiddle{
-  border-bottom: gray 0.2rem dashed;
   margin-left: 7rem;
   margin-right: 7rem;
   padding-bottom: 0.5rem;
@@ -133,7 +133,9 @@ li{
   margin-top: 5rem;
 }
 .companyPara{
-  font-size: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: rgb(128, 85, 207);
 }
 .para{
   margin: 1rem 6rem 6rem;
