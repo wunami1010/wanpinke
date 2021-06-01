@@ -65,11 +65,6 @@ export default new Router({
           component: resolve => require(['../page/recruit/resume.vue'], resolve)
         },
         {
-          path: '/news/notice',
-          name: 'notice',
-          component: resolve => require(['../page/news/notice.vue'], resolve)
-        },
-        {
           path: '/news/broad',
           name: 'broad',
           component: resolve => require(['../page/news/broad.vue'], resolve)

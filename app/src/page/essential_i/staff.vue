@@ -202,7 +202,7 @@ export default {
       })
     },
     createList () {
-      this.$http.post('http://localhost:3000/getStaffByIno', '')
+      this.$http.post('http://localhost:3000/getStaffList', '')
         .then((res) => {
           if (res.data.state === 'success') {
             this.tableData = res.data.data
