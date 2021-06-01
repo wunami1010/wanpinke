@@ -32,6 +32,21 @@
       </li>
     </div>
   </div>
+  <div class="viewScore">
+    <div class="viewheader"><span class="headertitle">评价情况</span></div>
+    <div class="chartsView">
+      <div id="attendechart" :style="{width: '20rem', height: '20rem'}"></div>
+      <div id="scoreechart" :style="{width: '28rem', height: '15rem'}"></div>
+    </div>
+    <div class="wordView">
+      <p class="wordheader" style="padding-bottom: 2rem; font-weight: bolder">其他说明</p>
+      <ul>
+        <li class="worditem"><span class="word"> 该员工本月解决突发情况表现出色</span><span class="date">2020-12-15</span></li>
+        <li class="worditem"><span class="word"> 该员工在会议中发言角度独特</span><span class="date">2021-3-15</span></li>
+        <li class="worditem"><span class="word"> 该员工上月工作略为懈怠</span><span class="date">2021-4-15</span></li>
+      </ul>
+    </div>
+  </div>
 </div>
 </template>
 <script>
@@ -54,7 +69,105 @@ export default {
       message: '    同济大学市场营销专业本科毕业。专业绩点排名处于前30%。热心公益，曾多次获得优秀青年志愿者奖'
     }
   },
+  mounted () {
+    this.drawLines()
+  },
   methods: {
+    drawLines () {
+      var attendechart = this.$echarts.init(document.getElementById('attendechart'))
+      var scoreechart = this.$echarts.init(document.getElementById('scoreechart'))
+      attendechart.setOption({
+        title: {
+          text: '员工上月出勤状况',
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left'
+        },
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            radius: '40%',
+            data: [
+              {value: 18, name: '正常在岗'},
+              {value: 1, name: '早退'},
+              {value: 1, name: '迟到'},
+              {value: 2, name: '请假'}
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      })
+      scoreechart.setOption({
+        title: {
+          text: '历次评分情况',
+          left: 'center'
+        },
+        lengend: {
+          data: ['个人评分成绩']
+        },
+        grid: {
+          left: '1%',
+          right: '5%',
+          bottom: '7%',
+          // top: '25%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          data: ['1月', '2月', '3月', '4月', '5月', '6月'],
+          boundaryGap: false,
+          nameTextStyle: {
+            color: '#880858',
+            fontSize: 16,
+            padding: [0, 0, 0, 20]
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#000000'
+            }
+          }
+        },
+        yAxis: {
+          name: '分数',
+          nameTextStyle: {
+            color: '#000000',
+            fontSize: 16,
+            padding: [0, 0, 10, 0]
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#000000'
+            }
+          },
+          type: 'value'
+        },
+        series: [
+          {
+            name: '个人成绩',
+            data: ['80', '85.4', '84', '88', '90', '80'],
+            type: 'line',
+            itemStyle: {normal: {label: {show: true}}},
+            lineStyle: {
+              normal: {
+                color: '#8AE'
+              }
+            }
+          }
+        ]
+      })
+    },
     changeInfo () {
       this.IfChange = true
       console.log('111')
@@ -94,11 +207,54 @@ export default {
 </script>
 
 <style scoped>
-.infor_box{
+.viewheader{
+  padding: 2rem;
+}
+.headertitle{
+  font-weight: bolder;
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+.wordView{
   display: flex;
-    padding:10px 10px 0px 0px;
-    margin: auto;
-    width:100%;
+  flex-direction: column;
+  margin: .5rem 3rem;
+  padding: 2rem;
+  border: 0.08rem solid lightgray;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
+}
+.viewScore{
+  display: flex;
+  flex-direction: column;
+  margin: .5rem 3rem;
+  padding: 2rem;
+  border: 0.08rem solid lightgray;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);
+}
+.chartsView{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5rem;
+}
+
+li.worditem{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  margin: 0.5rem;
+}
+span.date{
+  font-size: 1rem;
+  color: gray;
+}
+span.word{
+  font-size: 1rem;
+}
+.infor_box{
+    display: flex;
+    margin: .5rem 3rem;
+    padding: 2rem;
     justify-content: space-around;
     align-items: center;
     border: 0.08rem solid lightgray;
