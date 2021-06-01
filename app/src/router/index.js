@@ -30,29 +30,24 @@ export default new Router({
           component: resolve => require(['../page/Homepage.vue'], resolve)
         },
         {
-          path: '/essential_i/staff',
+          path: '/staff',
           name: 'staff',
           component: resolve => require(['../page/essential_i/staff'], resolve)
         },
         {
-          path: '/essential_i/company_i',
+          path: '/company_i',
           name: 'companyI',
           component: resolve => require(['../page/essential_i/company_i.vue'], resolve)
         },
         {
-          path: '/essential_i/staff_i/:id',
+          path: '/staff_i/:id',
           name: 'staffI',
           component: resolve => require(['../page/essential_i/staff_i.vue'], resolve)
         },
         {
-          path: '/assess/staff_a',
+          path: '/staff/assess/:id',
           name: 'staffA',
           component: resolve => require(['../page/assess/staff_assess.vue'], resolve)
-        },
-        {
-          path: '/assess/staff_s',
-          name: 'staffS',
-          component: resolve => require(['../page/assess/staff_show.vue'], resolve)
         },
         {
           path: '/recruit/job_m',

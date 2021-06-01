@@ -7,14 +7,14 @@
       <div class="hometop">
         <p class="hometopheader">业务导航</p>
         <div class="homenav">
-          <router-link to="/essential_i/company_i">
+          <router-link to="/company_i">
             <div class="navitem">
               <img src="../../static/ai/管理.png" :style="{width: '4rem', height: '4rem'}">
               <p>信息管理</p>
             </div>
           </router-link>
           <div class="border"></div>
-          <router-link to="/essential_i/staff">
+          <router-link to="/staff">
             <div class="navitem">
               <img src="../../static/ai/对话.png" :style="{width: '4rem', height: '4rem'}">
               <p>评分系统</p>
