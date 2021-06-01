@@ -58,10 +58,11 @@ export default {
         {id: 3, Ltitle: '官网', Lvalue: 'https://www.alibabagroup.com/cn/global/home', Rtitle: '地址', Rvalue: '中国杭州市余杭区文一西路969号。'},
         {id: 4, Ltitle: '电话', Lvalue: '(+86) 571-8502-2088', Rtitle: '邮箱', Rvalue: 'gsll@service.alibaba.com'},
         {id: 5, Ltitle: '负责人账号', Lvalue: 'albb@13', Rtitle: '负责人联系方式', Rvalue: '195412341023'}],
-      message: '        阿里巴巴集团控股有限公司（简称：阿里巴巴集团）是于1999年在浙江省杭州市创立的公司。 ' +
-               '阿里巴巴集团经营多项业务，另外也从关联公司的业务和服务中取得经营商业生态系统上的支援。' +
-               '业务和关联公司的业务包括：淘宝网、天猫、聚划算、全球速卖通、阿里巴巴国际交易市场、1688、阿里妈妈、阿里云、蚂蚁金服、菜鸟网络等。'
+      message: '简介'
     }
+  },
+  mounted () {
+    this.getCompany()
   },
   methods: {
     changeInfo () {
@@ -69,9 +70,49 @@ export default {
       console.log('111')
     },
     successChange () {
-      console.log('保存信息')
-      console.log(this.message)
-      this.IfChange = false
+      let obj = {
+        name: this.InfoLists[0].Lvalue,
+        Cno: this.InfoLists[0].Rvalue,
+        ctype: this.InfoLists[1].Lvalue,
+        settime: this.InfoLists[1].Rvalue,
+        officialweb: this.InfoLists[2].Lvalue,
+        address: this.InfoLists[2].Rvalue,
+        tel: this.InfoLists[3].Lvalue,
+        email: this.InfoLists[3].Rvalue,
+        charge: this.InfoLists[4].Lvalue,
+        chargetel: this.InfoLists[4].Rvalue,
+        intro: this.message,
+      }
+      this.$http.post('http://localhost:3000/getcompany', obj)
+        .then((res) => {
+          if (res.data.state === 'success') {
+            this.IfChange = false
+          }
+        }, err => {
+          console.log(err)
+        })
+    },
+    getCompany () {
+      this.$http.post('http://localhost:3000/getcompany', '')
+        .then((res) => {
+          if (res.data.state === 'success') {
+            let detaildata = res.data.data
+            console.log(detaildata)
+            this.InfoLists[0].Lvalue = detaildata[0].name
+            this.InfoLists[0].Rvalue = detaildata[0].Cno
+            this.InfoLists[1].Lvalue = detaildata[0].ctype
+            this.InfoLists[1].Rvalue = detaildata[0].settime
+            this.InfoLists[2].Lvalue = detaildata[0].officialweb
+            this.InfoLists[2].Rvalue = detaildata[0].address
+            this.InfoLists[3].Lvalue = detaildata[0].tel
+            this.InfoLists[3].Rvalue = detaildata[0].email
+            this.InfoLists[4].Lvalue = detaildata[0].charge
+            this.InfoLists[4].Rvalue = detaildata[0].chargetel
+            this.message = detaildata[0].intro
+          }
+        }, err => {
+          console.log(err)
+        })
     }
   }
 }

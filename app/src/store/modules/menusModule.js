@@ -49,7 +49,6 @@ let menus = [
     isSelected: false,
     isExpand: false,
     submenus: [
-      {id: 11, level: 2, type: 'link', name: '通知', url: '/news/notice'},
       {id: 12, level: 2, type: 'link', name: '公告', url: '/news/broad'}
     ]
   }

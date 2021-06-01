@@ -13,7 +13,7 @@
                         <el-table :data="unread" :show-header="false" style="width: 100%">
                             <el-table-column>
                                 <template slot-scope="scope">
-                                    <span class="message-title">{{scope.row.title}}</span>
+                                    <span class="message-title">【{{scope.row.messagetype}}】{{scope.row.content}}</span>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="date" width="180"></el-table-column>
@@ -29,7 +29,7 @@
                             <el-table :data="read" :show-header="false" style="width: 100%">
                                 <el-table-column>
                                     <template slot-scope="scope">
-                                        <span class="message-title">{{scope.row.title}}</span>
+                                        <span class="message-title">【{{scope.row.messagetype}}】{{scope.row.content}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="date" width="180"></el-table-column>
@@ -46,7 +46,7 @@
                             <el-table :data="recycle" :show-header="false" style="width: 100%">
                                 <el-table-column>
                                     <template slot-scope="scope">
-                                        <span class="message-title">{{scope.row.title}}</span>
+                                        <span class="message-title">【{{scope.row.messagetype}}】{{scope.row.content}}</span>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="date" width="180"></el-table-column>
@@ -137,22 +137,9 @@ export default {
       }],
       message: 'first',
       showHeader: false,
-      unread: [{
-        date: '2021-04-19 20:00:00',
-        title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护，请提前做好准备'
-      },
-      {
-        date: '2021-04-15 20:00:00',
-        title: '【公司通知】今晚12点整发大红包，先到先得'
-      }],
-      read: [{
-        date: '2021-04-02 12:00:00',
-        title: '【公司通知】清明节放假日期为四月三号-四月五号'
-      }],
-      recycle: [{
-        date: '2021-04-05 20:00:00',
-        title: '【系统通知】该系统将于今晚凌晨2点到5点进行升级维护，请提前做好准备'
-      }]
+      unread: '',
+      read: '',
+      recycle: ''
     }
   },
   mounted: function () {
@@ -161,30 +148,67 @@ export default {
     _this.$nextTick(function () {
       setInterval(_this.updateTime, 1000)
     })
+    this.showMessage()
   },
   methods: {
     showMessage () {
-      this.$http.post('http://localhost:3000/getMessage', '')
+      this.$http.post('http://localhost:3000/getMessage', {state: 'Neverread'})
         .then((res) => {
           if (res.data.state === 'success') {
-            console.log('success')
+            this.unread = res.data.data
+          }
+        }, err => {
+          console.log(err)
+        })
+      this.$http.post('http://localhost:3000/getMessage', {state: 'Haveread'})
+        .then((res) => {
+          if (res.data.state === 'success') {
+            this.read = res.data.data
+          }
+        }, err => {
+          console.log(err)
+        })
+      this.$http.post('http://localhost:3000/getMessage', {state: 'cycle'})
+        .then((res) => {
+          if (res.data.state === 'success') {
+            this.recycle = res.data.data
           }
         }, err => {
           console.log(err)
         })
     },
     handleRead (index) {
-      const item = this.unread.splice(index, 1)
-      console.log(item)
-      this.read = item.concat(this.read)
+      const id = this.unread.splice(index, 1)[0].id
+      this.$http.post('http://localhost:3000/changeMstate', {changestate: 'Haveread', id: id})
+        .then((res) => {
+          if (res.data.state === 'success') {
+            this.showMessage()
+          }
+        }, err => {
+          console.log(err)
+        })
     },
     handleDel (index) {
-      const item = this.read.splice(index, 1)
-      this.recycle = item.concat(this.recycle)
+      const id = this.read.splice(index, 1)[0].id
+      this.$http.post('http://localhost:3000/changeMstate', {changestate: 'cycle', id: id})
+        .then((res) => {
+          if (res.data.state === 'success') {
+            this.showMessage()
+          }
+        }, err => {
+          console.log(err)
+        })
     },
     handleRestore (index) {
-      const item = this.recycle.splice(index, 1)
-      this.read = item.concat(this.read)
+      const id = this.recycle.splice(index, 1)[0].id
+      this.$http.post('http://localhost:3000/changeMstate', {changestate: 'Haveread', id: id})
+        .then((res) => {
+          if (res.data.state === 'success') {
+            this.showMessage()
+          }
+        }, err => {
+          console.log(err)
+        })
     },
     updateTime: function () {
       let _this = this
