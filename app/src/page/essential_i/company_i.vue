@@ -81,7 +81,7 @@ export default {
         email: this.InfoLists[3].Rvalue,
         charge: this.InfoLists[4].Lvalue,
         chargetel: this.InfoLists[4].Rvalue,
-        intro: this.message,
+        intro: this.message
       }
       this.$http.post('http://localhost:3000/getcompany', obj)
         .then((res) => {
