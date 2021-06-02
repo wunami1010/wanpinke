@@ -2,6 +2,7 @@
 <div>
   <el-breadcrumb separator=">">
   <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
+  <el-breadcrumb-item :to="{path: '/staff'}">员工列表</el-breadcrumb-item>
   <el-breadcrumb-item>员工详情界面</el-breadcrumb-item>
   </el-breadcrumb>
   <h1>&nbsp;</h1>
@@ -184,16 +185,16 @@ export default {
           if (res.data.state === 'success') {
             let detaildata = res.data.data
             console.log(res.data.data)
-            this.InfoLists[0].Rvalue = detaildata.Ino
-            this.InfoLists[0].Lvalue = detaildata.name
-            this.InfoLists[1].Lvalue = detaildata.gender
-            this.InfoLists[1].Rvalue = detaildata.birth
-            this.InfoLists[2].Lvalue = detaildata.entrytime
-            this.InfoLists[2].Rvalue = detaildata.address
-            this.InfoLists[3].Lvalue = detaildata.tel
-            this.InfoLists[3].Rvalue = detaildata.email
-            this.InfoLists[4].Lvalue = detaildata.depart
-            this.InfoLists[4].Rvalue = detaildata.position
+            this.InfoLists[0].value = detaildata.Ino
+            this.InfoLists[1].value = detaildata.name
+            this.InfoLists[2].value = detaildata.gender
+            this.InfoLists[3].value = detaildata.birth
+            this.InfoLists[4].value = detaildata.entrytime
+            this.InfoLists[5].value = detaildata.address
+            this.InfoLists[6].value = detaildata.tel
+            this.InfoLists[7].value = detaildata.email
+            this.InfoLists[8].value = detaildata.depart
+            this.InfoLists[9].value = detaildata.position
           }
         }, err => {
           console.log(err)

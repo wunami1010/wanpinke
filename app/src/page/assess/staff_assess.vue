@@ -2,7 +2,7 @@
   <div>
     <el-breadcrumb separator=">">
       <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{path: '/essential_i/staff'}">评分系统</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{path: '/staff'}">员工列表</el-breadcrumb-item>
       <el-breadcrumb-item>评价页面</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="contentWrapper">

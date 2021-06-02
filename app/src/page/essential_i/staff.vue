@@ -34,39 +34,48 @@
         <el-table
         @row-click="getRow" :data="tableData.slice((currentPage-1)*pagesize, currentPage*pagesize)"
         stripe
+        height="33rem"
         >
           <el-table-column
           type="index"
           label="序号"
-          style="text-align:center;">
+          style="text-align:center;"
+          width="50px">
           </el-table-column>
           <el-table-column class="SId"
           prop="Ino"
           label="工号"
-          >
+          width="50px">
           </el-table-column>
         <el-table-column
           prop="name"
+          width="80px"
           label="姓名">
         </el-table-column>
         <el-table-column
           prop="depart"
-          label="部门">
+          label="部门"
+          width="100px">
         </el-table-column>
         <el-table-column
           prop="position"
-          label="职位">
+          label="职位"
+          width="100px">
         </el-table-column>
         <el-table-column
           prop="tel"
-          label="联系方式">
+          label="联系方式"
+          width="120px">
         </el-table-column>
         <el-table-column
           label="其他信息"
           >
-          <router-link class="detailed" :to="'/essential_i/staff_i/'+row.Ino">
-            ...
-          </router-link>
+          <template scope="scope">
+            <el-button
+            @click="handleDetail(scope.$index)">查看详情</el-button>
+            <el-button
+            @click="handleAccess(scope.$index)">点击评价</el-button>
+          </template>
         </el-table-column>
         </el-table>
         <el-pagination
@@ -109,6 +118,14 @@ export default {
     this.createList()
   },
   methods: {
+    handleDetail (index) {
+      const id = this.tableData[(this.currentPage - 1) * this.pagesize + index].id
+      this.$router.push({path: '/staff_i/' + id})
+    },
+    handleAccess (index) {
+      const id = this.tableData[(this.currentPage - 1) * this.pagesize + index].id
+      this.$router.push({path: '/staff/assess/' + id})
+    },
     handleCurrentChange (currentPage) {
       this.currentPage = currentPage
     },
@@ -225,6 +242,10 @@ export default {
 }
 .el-table{
   height: 33rem;
+}
+.el-table__row{
+  padding: 0;
+  height: 10rem;
 }
 .s_top{
   width: 100%;

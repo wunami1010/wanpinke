@@ -2,7 +2,7 @@
  <div>
   <el-breadcrumb separator=">">
   <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
-  <el-breadcrumb-item>公司详情界面</el-breadcrumb-item>
+  <el-breadcrumb-item>公司详情</el-breadcrumb-item>
   </el-breadcrumb>
   <h1>&nbsp;</h1>
     <div class="contentWrapper">
@@ -52,6 +52,7 @@ export default {
     return {
       IfChange: false,
       input: '',
+      Id: '',
       InfoLists: [
         {id: 1, Ltitle: '名称', Lvalue: '阿里巴巴集团控股有限公司', Rtitle: '编号', Rvalue: '5'},
         {id: 2, Ltitle: '类型', Lvalue: '互联网公司', Rtitle: '成立时间', Rvalue: '1999年'},
@@ -71,6 +72,7 @@ export default {
     },
     successChange () {
       let obj = {
+        id: this.Id,
         name: this.InfoLists[0].Lvalue,
         Cno: this.InfoLists[0].Rvalue,
         ctype: this.InfoLists[1].Lvalue,
@@ -83,7 +85,7 @@ export default {
         chargetel: this.InfoLists[4].Rvalue,
         intro: this.message
       }
-      this.$http.post('http://localhost:3000/getcompany', obj)
+      this.$http.post('http://localhost:3000/changeCM', obj)
         .then((res) => {
           if (res.data.state === 'success') {
             this.IfChange = false
@@ -109,6 +111,7 @@ export default {
             this.InfoLists[4].Lvalue = detaildata[0].charge
             this.InfoLists[4].Rvalue = detaildata[0].chargetel
             this.message = detaildata[0].intro
+            this.Id = detaildata[0].id
           }
         }, err => {
           console.log(err)
