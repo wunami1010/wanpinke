@@ -61,21 +61,39 @@
                 </el-tabs>
             </div>
             <div class="s_contain">
-                 <div class="s_left">
-                     <div class="user-info">
-                         <img src="static/ai/default_scu.jpg" class="user-info-img">
-                         <div class="clock">
-                           <h2>张三{{name}}</h2>
-                           <p>&nbsp;</p>
-                           <p class="date">{{ date }}</p>
-                           <p class="time">{{ time }}</p>
-                          </div>
-                     </div>
-                     <div class="user-info-list">
-                         <p>上次登录时间：<span>2021-04-19</span></p>
-                         <p>上次登录地点：<span>杭州</span></p>
-                     </div>
-                 </div>
+              <div class="leftTop">
+                <div class="updatebtn" style="display: flex;margin-bottom: 2rem">
+                  <button class="changeBtn" @click="upnotice" v-if="!IfChange" style="padding: .5rem;width: 7rem"> <i class="el-icon-edit"></i>点击发布公告</button>
+                  <button class="changeBtn" @click="finishnotice" v-if="IfChange"> <i class="el-icon-edit"></i>确认发布</button>
+                </div>
+                <div class="para" v-if="IfChange">
+                  <el-card class="box-card" style="margin-right: 2.5rem;margin-bottom: 3rem;border: 0.08rem solid lightgray;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgb(202, 196, 196);">
+                    <el-input
+                      type="textarea"
+                      :autosize="{ minRows: 5, maxRows: 10}"
+                      placeholder="请输入内容"
+                      v-model="noticemessage"
+                      v-if="IfChange">
+                    </el-input>
+                  </el-card>
+                </div>
+               <div class="s_left">
+                   <div class="user-info">
+                       <img src="static/ai/default_scu.jpg" class="user-info-img">
+                       <div class="clock">
+                         <h2>张三{{name}}</h2>
+                         <p>&nbsp;</p>
+                         <p class="date">{{ date }}</p>
+                         <p class="time">{{ time }}</p>
+                        </div>
+                   </div>
+                   <div class="user-info-list">
+                       <p>上次登录时间：<span>2021-04-19</span></p>
+                       <p>上次登录地点：<span>杭州</span></p>
+                   </div>
+               </div>
+              </div>
                  <div class="s_right">
                      <div class="sname">待办事项</div>
                      <el-button style="float: right; padding: 6px 0" type="text">添加</el-button>
@@ -111,6 +129,7 @@ export default {
       date: '',
       time: '',
       week: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+      noticemessage: '',
       todoList: [{
         title: '今天要修复100个bug',
         status: false
@@ -151,6 +170,13 @@ export default {
     this.showMessage()
   },
   methods: {
+    upnotice () {
+      this.IfChange = true
+      console.log('111')
+    },
+    finishnotice () {
+      console.log('finish')
+    },
     showMessage () {
       this.$http.post('http://localhost:3000/getMessage', {state: 'Neverread'})
         .then((res) => {
