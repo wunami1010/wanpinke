@@ -171,6 +171,20 @@ export default {
     handleClick (tab, event) {
       console.log(tab, event)
     },
+    getStaffDetail () {
+      let Ino = this.$route.params.id
+      this.$http.get('http://localhost:3000/getStaffByIno/' + Ino, '')
+        .then((res) => {
+          if (res.data.state === 'success') {
+            let detaildata = res.data.data
+            this.Assess.id = Ino
+            this.Assess.name = detaildata.name
+            this.Assess.department = detaildata.depart
+          }
+        }, err => {
+          console.log(err)
+        })
+    },
     showRule () {
       const tip = this.$createElement
       this.$notify({
@@ -221,6 +235,7 @@ export default {
     this.$nextTick(function () {
       this.showRule()
     })
+    this.getStaffDetail()
   },
   computed: {
     P1mark: function () {

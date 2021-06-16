@@ -55,7 +55,7 @@ export default new Router({
           component: resolve => require(['../page/recruit/job_market.vue'], resolve)
         },
         {
-          path: '/recruit/resume',
+          path: '/recruit/resume/:id',
           name: 'resume',
           component: resolve => require(['../page/recruit/resume.vue'], resolve)
         },

@@ -33,12 +33,11 @@ let menus = [
     isSelected: false,
     isExpand: false,
     submenus: [
-      {id: 7, level: 2, type: 'link', name: '接收到的简历', url: '/recruit/job_m'},
-      {id: 8, level: 2, type: 'link', name: '员工基本信息', url: '/recruit/resume'}
+      {id: 7, level: 2, type: 'link', name: '接收到的简历', url: '/recruit/job_m'}
     ]
   },
   {
-    id: 9,
+    id: 8,
     level: 1,
     type: 'button',
     name: '消息通知',
