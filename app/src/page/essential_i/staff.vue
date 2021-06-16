@@ -68,13 +68,16 @@
           width="120px">
         </el-table-column>
         <el-table-column
+          prop="assess"
           label="其他信息"
           >
-          <template scope="scope">
+          <template slot-scope="scope">
             <el-button
             @click="handleDetail(scope.$index)">查看详情</el-button>
-            <el-button
+            <el-button v-if="!scope.row.assess"
             @click="handleAccess(scope.$index)">点击评价</el-button>
+            <el-button v-if="scope.row.assess"
+            @click="handleHavenAccess(scope.$index)">已评价</el-button>
           </template>
         </el-table-column>
         </el-table>
@@ -223,6 +226,12 @@ export default {
         .then((res) => {
           if (res.data.state === 'success') {
             this.tableData = res.data.data
+            for (var i = 0; i < this.tableData.length; i++) {
+              this.$http.post('http://localhost:3000/getAssessornot', {Ino: this.tableData[i].Ino})
+              .then((res) => {
+                this.tableData[i].assess = res.data.assess
+              })
+            }
           }
         }, err => {
           console.log(err)

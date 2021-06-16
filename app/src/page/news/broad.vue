@@ -1,5 +1,8 @@
 <template>
     <div class="box">
+    <transition name="fade">
+      <mess v-if="this.state">{{message}}</mess>
+    </transition>
         <el-row :gutter="20" type="flex" justify="space-between">
         <el-breadcrumb separator=">">
         <el-breadcrumb-item :to="{path: '/Homepage'}">首页</el-breadcrumb-item>
@@ -122,12 +125,17 @@
 </template>
 
 <script>
+import mess from '../../components/message.vue'
 export default {
+  components: {
+    mess
+  },
   data () {
     return {
       name: localStorage.getItem('ms_username'),
       date: '',
       time: '',
+      state: false,
       week: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
       noticemessage: '',
       todoList: [{
@@ -170,12 +178,28 @@ export default {
     this.showMessage()
   },
   methods: {
+    timeout () {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(this.state = false, this.message = '')
+        }, 2600)
+      })
+    },
     upnotice () {
       this.IfChange = true
       console.log('111')
     },
     finishnotice () {
       console.log('finish')
+      this.$http.post('http://localhost:3000/addMessage', {messagevalue: this.noticemessage})
+        .then((res) => {
+          if(res.data.state === 'success'){
+            this.state = true
+            this.message = '发布公告成功'
+            this.timeout()
+            this.showMessage()
+          }
+        })
     },
     showMessage () {
       this.$http.post('http://localhost:3000/getMessage', {state: 'Neverread'})
@@ -362,5 +386,15 @@ export default {
 .clock{
   width: 30rem;
   float: right;
+}
+.mess{
+  position: absolute;
+  top: 5%;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

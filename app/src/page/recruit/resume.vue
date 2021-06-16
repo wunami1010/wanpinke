@@ -39,7 +39,8 @@
           <span class="tag">求职意向：{{item.aimWilling}}</span>
         </div>
         <div class="gap"><h3 class="gapTitle">教育经历</h3><hr class="modelSplit"></div>
-        <div class="education" v-for="item in EduExp" :key="item.index">
+          <div class="midName">{{EduExp}}</div>
+        <!-- <div class="education" v-for="item in EduExp" :key="item.index">
           <div class="midName">
             <div class="left"><span class="placeName">{{item.school}}</span><span>{{item.education}}</span><span>{{item.major}}</span></div>
             <div class="right"><span class="Time">{{item.time}}</span></div>
@@ -47,9 +48,10 @@
           <div class="placeMark">
             <span>{{item.experience}}</span>
           </div>
-        </div>
+        </div> -->
         <div class="gap"><h3 class="gapTitle">工作经历</h3><hr class="modelSplit"></div>
-        <div class="work" v-for="item in WorkExp" :key="item.index">
+          <div class="midName">{{WorkExp}}</div>
+        <!-- <div class="work" v-for="item in WorkExp" :key="item.index">
           <div class="midName">
             <div class="left"><span class="placeName">{{item.company}}</span><span>{{item.job}}</span></div>
             <div class="right"><span class="Time">{{item.time}}</span></div>
@@ -59,9 +61,10 @@
             <span>{{item.experience}}</span>
             <span>{{item.experience}}</span>
           </div>
-        </div>
+        </div> -->
         <div class="gap"><h3 class="gapTitle">项目经历</h3><hr class="modelSplit"></div>
-        <div class="work" v-for="item in ProExp" v-bind:key="item.index">
+          <div class="midName">{{ProExp}}</div>
+        <!-- <div class="work" v-for="item in ProExp" v-bind:key="item.index">
           <div class="midName">
             <div class="left"><span class="placeName">{{item.role}}</span></div>
             <div class="right"><span class="Time">{{item.time}}</span></div>
@@ -69,7 +72,7 @@
           <div class="placeMark">
             <span>{{item.intro}}</span>
           </div>
-        </div>
+        </div> -->
         <div class="gap"><h3 class="gapTitle">个人荣誉</h3><hr class="modelSplit"></div>
         <div class="honor">
           <div class="placeMark">
@@ -100,7 +103,6 @@ export default {
         aimMoney: '11k~13k'
       }],
       EduExp: [{
-        id: '1',
         school: '杭州电子科技大学',
         education: '本科',
         major: '计算机科学与技术',
@@ -108,7 +110,6 @@ export default {
         experience: '绩点：4.4/5.0，成绩排名：前30%'
       },
       {
-        id: '1',
         school: '浙江大学',
         education: '硕士',
         time: '2019.9-2022.6',
@@ -116,20 +117,21 @@ export default {
         experience: 'xxxxxxxxx'
       }],
       WorkExp: [{
-        id: '1',
         company: '阿里巴巴',
         job: '前端工程师',
         time: '2018.8-2020.7',
         experience: '在原先单位的工作情况工作经历'
       }],
       ProExp: [{
-        id: '1',
         role: '项目负责人',
         intro: '项目经历详情',
         time: '2019.5'
       }],
       Honor: '个人荣誉'
     }
+  },
+  mounted () {
+    this.showResume()
   },
   methods: {
     IfShow () {
@@ -145,6 +147,32 @@ export default {
     returnJobM () {
       // alert('111')
       this.$router.push({path: '/recruit/job_m'})
+    },
+    showResume () {
+      let Ino = this.$route.params.id
+      this.$http.get('http://localhost:3000/getResumeById/' + Ino, '')
+        .then((res) => {
+          if (res.data.state === 'success') {
+            let detaildata = res.data.data
+            this.resumeInfo[0].id = detaildata.Ino
+            this.resumeInfo[0].name = detaildata.name
+            this.resumeInfo[0].gender = detaildata.gender
+            this.resumeInfo[0].graduated = detaildata.graduated
+            this.resumeInfo[0].education = detaildata.education
+            this.resumeInfo[0].year = detaildata.year
+            this.resumeInfo[0].place = detaildata.place
+            this.resumeInfo[0].aimWilling = detaildata.aimWilling
+            this.resumeInfo[0].aimJob = detaildata.aimJob
+            this.resumeInfo[0].aimPlace = detaildata.aimPlace
+            this.resumeInfo[0].aimMoney = detaildata.aimMoney
+            this.EduExp = detaildata.eduE
+            this.WorkExp = detaildata.workE
+            this.ProExp = detaildata.ProE
+            this.Honor = detaildata.Honor
+          }
+        }, err => {
+          console.log(err)
+        })
     }
     // changeShow () {
     //   this.IsShow = true
